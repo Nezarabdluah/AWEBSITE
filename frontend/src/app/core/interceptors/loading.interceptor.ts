@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { LoadingService } from '../services/loading.service';
+
+/**
+ * Interceptor لعرض Loading
+ * يعرض Loading Spinner تلقائياً أثناء الطلبات
+ */
+@Injectable()
+export class LoadingInterceptor implements HttpInterceptor {
+
+  constructor(private loadingService: LoadingService) { }
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // عرض Loading
+    this.loadingService.show();
+
+    return next.handle(request).pipe(
+      finalize(() => {
+        // إخفاء Loading عند انتهاء الطلب
+        this.loadingService.hide();
+      })
+    );
+  }
+}

@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: node:20-alpine
+    container_name: uni_frontend
+    working_dir: /app
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: sh -c "npm install -g @angular/cli && npm install && ng serve --host 0.0.0.0 --poll 2000"
+    networks:
+      - uni-network
+
+  database:
+    image: mysql:8.0
+    container_name: uni_database
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: uni_project
+      MYSQL_USER: uni_user
+      MYSQL_PASSWORD: uni_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - uni-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: uni_phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: database
+      PMA_USER: uni_user
+      PMA_PASSWORD: uni_password
+    networks:
+      - uni-network
+    depends_on:
+      - database
+
+networks:
+  uni-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
