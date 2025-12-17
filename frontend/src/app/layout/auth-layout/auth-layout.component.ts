@@ -1,0 +1,18 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+/**
+ * Auth Layout Component
+ * Layout خاص بصفحات المصادقة (Login, Register, Forgot Password)
+ */
+@Component({
+    selector: 'app-auth-layout',
+    standalone: true,
+    imports: [CommonModule, RouterModule],
+    templateUrl: './auth-layout.component.html',
+    styleUrl: './auth-layout.component.scss'
+})
+export class AuthLayoutComponent {
+    currentYear = new Date().getFullYear();
+}

@@ -1,0 +1,56 @@
+<nav class="pagination" aria-label="Pagination">
+    <ul class="pagination__list">
+        <!-- Previous Button -->
+        <li class="pagination__item">
+            <button class="pagination__button pagination__button--prev" [disabled]="currentPage === 1"
+                (click)="previousPage()" aria-label="Previous page">
+                <span>←</span>
+                <span class="pagination__label">السابق</span>
+            </button>
+        </li>
+
+        <!-- First Page -->
+        @if (pages[0] > 1) {
+        <li class="pagination__item">
+            <button class="pagination__button" (click)="goToPage(1)" [attr.aria-label]="'Go to page 1'">
+                1
+            </button>
+        </li>
+        @if (pages[0] > 2) {
+        <li class="pagination__item pagination__ellipsis">...</li>
+        }
+        }
+
+        <!-- Page Numbers -->
+        @for (page of pages; track page) {
+        <li class="pagination__item">
+            <button class="pagination__button" [class.pagination__button--active]="page === currentPage"
+                [attr.aria-current]="page === currentPage ? 'page' : null" [attr.aria-label]="'Go to page ' + page"
+                (click)="goToPage(page)">
+                {{ page }}
+            </button>
+        </li>
+        }
+
+        <!-- Last Page -->
+        @if (pages[pages.length - 1] < totalPages) { @if (pages[pages.length - 1] < totalPages - 1) { <li
+            class="pagination__item pagination__ellipsis">...</li>
+            }
+            <li class="pagination__item">
+                <button class="pagination__button" (click)="goToPage(totalPages)"
+                    [attr.aria-label]="'Go to page ' + totalPages">
+                    {{ totalPages }}
+                </button>
+            </li>
+            }
+
+            <!-- Next Button -->
+            <li class="pagination__item">
+                <button class="pagination__button pagination__button--next" [disabled]="currentPage === totalPages"
+                    (click)="nextPage()" aria-label="Next page">
+                    <span class="pagination__label">التالي</span>
+                    <span>→</span>
+                </button>
+            </li>
+    </ul>
+</nav>

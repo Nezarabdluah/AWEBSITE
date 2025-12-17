@@ -1,0 +1,208 @@
+<!-- ========== HERO SECTION ========== -->
+<section class="hero">
+    <div class="hero__overlay"></div>
+    <div class="container hero__content">
+        <h1 class="hero__title" data-aos="fade-up">
+            ابدأ رحلتك التعليمية العالمية
+        </h1>
+        <p class="hero__subtitle" data-aos="fade-up" data-aos-delay="100">
+            نساعدك في اختيار الجامعة المناسبة والحصول على القبول في أفضل الجامعات العالمية
+        </p>
+        <div class="hero__actions" data-aos="fade-up" data-aos-delay="200">
+            <a routerLink="/universities" class="btn btn-primary btn-lg">
+                استعرض الجامعات
+            </a>
+            <a routerLink="/contact" class="btn btn-outline btn-lg">
+                تواصل معنا
+            </a>
+        </div>
+    </div>
+    <div class="hero__scroll">
+        <span>اكتشف المزيد</span>
+        <div class="hero__scroll-icon">↓</div>
+    </div>
+</section>
+
+<!-- ========== SERVICES SECTION ========== -->
+<section class="services">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">خدماتنا</h2>
+            <p class="section-subtitle">نقدم لك مجموعة متكاملة من الخدمات لضمان نجاح رحلتك الدراسية</p>
+        </div>
+
+        <div class="services__grid">
+            @for (service of services; track service.title) {
+            <div class="service-card" data-aos="fade-up" [attr.data-aos-delay]="$index * 100">
+                <div class="service-card__icon">{{ service.icon }}</div>
+                <h3 class="service-card__title">{{ service.title }}</h3>
+                <p class="service-card__description">{{ service.description }}</p>
+            </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ========== FEATURED UNIVERSITIES ========== -->
+<section class="universities">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">جامعات مميزة</h2>
+            <p class="section-subtitle">تعرف على بعض من أفضل الجامعات التي نتعاون معها</p>
+        </div>
+
+        <div class="universities__grid">
+            @for (university of featuredUniversities; track university.id) {
+            <app-card [imageUrl]="university.image" [hoverable]="true" [clickable]="true" (cardClick)="$event"
+                data-aos="zoom-in" [attr.data-aos-delay]="$index * 100">
+
+                <div class="university-card__content">
+                    <div class="university-card__ranking">{{ university.ranking }}</div>
+                    <h3 class="university-card__name">{{ university.name }}</h3>
+                    <p class="university-card__country">📍 {{ university.country }}</p>
+                    <p class="university-card__programs">{{ university.programs }} برنامج دراسي</p>
+                </div>
+
+                <div card-footer>
+                    <a [routerLink]="['/universities', university.id]" class="btn btn-sm btn-primary">
+                        التفاصيل
+                    </a>
+                </div>
+            </app-card>
+            }
+        </div>
+
+        <div class="universities__cta">
+            <a routerLink="/universities" class="btn btn-outline">
+                عرض جميع الجامعات →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== TESTIMONIALS SECTION ========== -->
+<section class="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">آراء الطلاب</h2>
+            <p class="section-subtitle">ماذا يقول طلابنا عن تجربتهم معنا</p>
+        </div>
+
+        <div class="testimonials__slider">
+            <button class="testimonials__nav testimonials__nav--prev" (click)="previousTestimonial()"
+                aria-label="Previous testimonial">
+                ←
+            </button>
+
+            <div class="testimonials__content">
+                @for (testimonial of testimonials; track testimonial.id) {
+                <div class="testimonial-card" [class.testimonial-card--active]="$index === currentTestimonial">
+
+                    <div class="testimonial-card__stars">
+                        @for (star of getStars(testimonial.rating); track $index) {
+                        <span class="star">⭐</span>
+                        }
+                    </div>
+
+                    <p class="testimonial-card__text">"{{ testimonial.text }}"</p>
+
+                    <div class="testimonial-card__author">
+                        <img [src]="testimonial.image" [alt]="testimonial.name" class="testimonial-card__avatar">
+                        <div class="testimonial-card__info">
+                            <h4 class="testimonial-card__name">{{ testimonial.name }}</h4>
+                            <p class="testimonial-card__university">{{ testimonial.university }}</p>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <button class="testimonials__nav testimonials__nav--next" (click)="nextTestimonial()"
+                aria-label="Next testimonial">
+                →
+            </button>
+        </div>
+
+        <div class="testimonials__dots">
+            @for (testimonial of testimonials; track $index) {
+            <button class="testimonials__dot" [class.testimonials__dot--active]="$index === currentTestimonial"
+                (click)="currentTestimonial = $index" [attr.aria-label]="'Go to testimonial ' + ($index + 1)">
+            </button>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ========== CONSULTANTS SECTION ========== -->
+<section class="consultants">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">استشاريونا المميزون</h2>
+            <p class="section-subtitle">تواصل مع خبرائنا للحصول على الاستشارة المناسبة</p>
+        </div>
+
+        <div class="consultants__grid">
+            @for (consultant of topConsultants; track consultant.id) {
+            <div class="consultant-card" data-aos="flip-left" [attr.data-aos-delay]="$index * 100">
+                <img [src]="consultant.image" [alt]="consultant.name" class="consultant-card__image">
+
+                <div class="consultant-card__content">
+                    <h3 class="consultant-card__name">{{ consultant.name }}</h3>
+                    <p class="consultant-card__specialization">{{ consultant.specialization }}</p>
+
+                    <div class="consultant-card__stats">
+                        <div class="consultant-stat">
+                            <span class="consultant-stat__value">{{ consultant.students }}</span>
+                            <span class="consultant-stat__label">طالب</span>
+                        </div>
+                        <div class="consultant-stat">
+                            <span class="consultant-stat__value">{{ consultant.rating }}</span>
+                            <span class="consultant-stat__label">⭐ التقييم</span>
+                        </div>
+                    </div>
+
+                    <a [routerLink]="['/consultants', consultant.id]" class="btn btn-sm btn-primary btn-block">
+                        حجز استشارة
+                    </a>
+                </div>
+            </div>
+            }
+        </div>
+
+        <div class="consultants__cta">
+            <a routerLink="/consultants" class="btn btn-outline">
+                عرض جميع الاستشاريين →
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== STATS SECTION ========== -->
+<section class="stats">
+    <div class="container">
+        <div class="stats__grid">
+            @for (stat of stats; track stat.label) {
+            <div class="stat-card" data-aos="zoom-in" [attr.data-aos-delay]="$index * 100">
+                <div class="stat-card__icon">{{ stat.icon }}</div>
+                <div class="stat-card__value">
+                    {{ stat.value }}{{ stat.suffix }}
+                </div>
+                <div class="stat-card__label">{{ stat.label }}</div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- ========== CTA SECTION ========== -->
+<section class="cta">
+    <div class="container">
+        <div class="cta__content">
+            <h2 class="cta__title">هل أنت مستعد للبدء؟</h2>
+            <p class="cta__text">احصل على استشارة مجانية الآن وابدأ رحلتك نحو الجامعة التي تحلم بها</p>
+            <a routerLink="/contact" class="btn btn-lg btn-light">
+                احصل على استشارة مجانية
+            </a>
+        </div>
+    </div>
+</section>

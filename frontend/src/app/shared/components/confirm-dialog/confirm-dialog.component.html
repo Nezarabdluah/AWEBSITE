@@ -1,0 +1,23 @@
+@if (dialogService.isOpen() && dialogService.data(); as data) {
+<div class="confirm-dialog" (click)="cancel()">
+    <div class="confirm-dialog__box" (click)="$event.stopPropagation()">
+        <div class="confirm-dialog__header">
+            <h3 class="confirm-dialog__title">{{ data.title }}</h3>
+        </div>
+
+        <div class="confirm-dialog__body">
+            <p class="confirm-dialog__message">{{ data.message }}</p>
+        </div>
+
+        <div class="confirm-dialog__footer">
+            <button class="btn btn-secondary" (click)="cancel()">
+                {{ data.cancelText }}
+            </button>
+            <button class="btn" [class.btn-danger]="data.type === 'danger'"
+                [class.btn-primary]="data.type === 'default'" (click)="confirm()">
+                {{ data.confirmText }}
+            </button>
+        </div>
+    </div>
+</div>
+}

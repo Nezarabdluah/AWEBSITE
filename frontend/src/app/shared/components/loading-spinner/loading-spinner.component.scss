@@ -1,0 +1,70 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.loading-spinner {
+    @include flex-center;
+    @include flex-column;
+
+    &--overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: z('overlay');
+        backdrop-filter: blur(4px);
+    }
+
+    &__content {
+        @include flex-center;
+        @include flex-column;
+        gap: $spacing-md;
+    }
+
+    &__spinner {
+        border-radius: $radius-full;
+        animation: spin 0.8s linear infinite;
+    }
+
+    &--small &__spinner {
+        width: 24px;
+        height: 24px;
+        border: 3px solid rgba(gray, 0.2);
+        border-top-color: var(--primary-color);
+        border-left-color: var(--primary-color);
+    }
+
+    &--medium &__spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(gray, 0.2);
+        border-top-color: var(--primary-color);
+        border-left-color: var(--primary-color);
+    }
+
+    &--large &__spinner {
+        width: 60px;
+        height: 60px;
+        border: 5px solid rgba(gray, 0.2);
+        border-top-color: var(--primary-color);
+        border-left-color: var(--primary-color);
+    }
+
+    &__text {
+        color: var(--text-color);
+        font-size: $font-size-base;
+        font-weight: $font-weight-medium;
+        margin: 0;
+    }
+
+    &--overlay &__text {
+        color: white;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

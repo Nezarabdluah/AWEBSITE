@@ -1,0 +1,85 @@
+<div class="login-page">
+    <div class="login-container">
+        <div class="login-box">
+            <!-- Header -->
+            <div class="login-header">
+                <h1 class="login-title">تسجيل الدخول</h1>
+                <p class="login-subtitle">مرحباً بعودتك! قم بتسجيل الدخول لحسابك</p>
+            </div>
+
+            <!-- Form -->
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        البريد الإلكتروني <span class="required">*</span>
+                    </label>
+                    <input type="email" id="email" formControlName="email" class="form-input"
+                        [class.is-invalid]="isFieldInvalid('email')" placeholder="example@email.com"
+                        autocomplete="email">
+
+                    @if (isFieldInvalid('email')) {
+                    <span class="form-error">{{ getErrorMessage('email') }}</span>
+                    }
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        كلمة المرور <span class="required">*</span>
+                    </label>
+                    <div class="password-input">
+                        <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+                            class="form-input" [class.is-invalid]="isFieldInvalid('password')" placeholder="••••••••"
+                            autocomplete="current-password">
+                        <button type="button" class="password-toggle" (click)="togglePasswordVisibility()"
+                            [attr.aria-label]="showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'">
+                            {{ showPassword ? '👁️' : '👁️‍🗨️' }}
+                        </button>
+                    </div>
+
+                    @if (isFieldInvalid('password')) {
+                    <span class="form-error">{{ getErrorMessage('password') }}</span>
+                    }
+                </div>
+
+                <!-- Remember Me & Forgot Password -->
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" formControlName="rememberMe">
+                        <span>تذكرني</span>
+                    </label>
+                    <a routerLink="/auth/forgot-password" class="forgot-link">
+                        نسيت كلمة المرور؟
+                    </a>
+                </div>
+
+                <!-- Error Message -->
+                @if (error) {
+                <div class="alert alert-error">
+                    {{ error }}
+                </div>
+                }
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="isSubmitting">
+                    @if (isSubmitting) {
+                    <app-loading-spinner [size]="'small'" [color]="'white'"></app-loading-spinner>
+                    جاري تسجيل الدخول...
+                    } @else {
+                    تسجيل الدخول
+                    }
+                </button>
+            </form>
+
+            <!-- Register Link -->
+            <div class="login-footer">
+                <p>
+                    ليس لديك حساب؟
+                    <a routerLink="/auth/register" class="register-link">سجل الآن</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

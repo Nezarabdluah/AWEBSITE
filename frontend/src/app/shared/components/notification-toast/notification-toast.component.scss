@@ -1,0 +1,125 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.toast-container {
+    position: fixed;
+    top: $spacing-lg;
+    right: $spacing-lg;
+    z-index: z('toast');
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    max-width: 400px;
+    pointer-events: none;
+
+    @include respond-to('sm') {
+        left: $spacing-lg;
+        right: $spacing-lg;
+        max-width: none;
+    }
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    padding: $spacing-md $spacing-lg;
+    background-color: var(--card-bg);
+    border-radius: $radius-lg;
+    box-shadow: $shadow-2xl;
+    pointer-events: auto;
+    animation: slideInRight 0.3s ease-out;
+    border-left: 4px solid;
+
+    &--success {
+        border-left-color: $success-color;
+
+        .toast__icon {
+            color: $success-color;
+        }
+    }
+
+    &--error {
+        border-left-color: $error-color;
+
+        .toast__icon {
+            color: $error-color;
+        }
+    }
+
+    &--warning {
+        border-left-color: $warning-color;
+
+        .toast__icon {
+            color: $warning-color;
+        }
+    }
+
+    &--info {
+        border-left-color: $info-color;
+
+        .toast__icon {
+            color: $info-color;
+        }
+    }
+
+    &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    &__message {
+        flex: 1;
+        color: var(--text-color);
+        font-size: $font-size-base;
+    }
+
+    &__close {
+        @include button-reset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        color: var(--text-muted);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color $transition-base;
+        flex-shrink: 0;
+
+        &:hover {
+            color: var(--text-color);
+        }
+    }
+}
+
+// RTL Support
+[dir='rtl'] {
+    .toast-container {
+        right: auto;
+        left: $spacing-lg;
+    }
+
+    .toast {
+        border-left: none;
+        border-right: 4px solid;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

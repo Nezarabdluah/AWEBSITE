@@ -4,27 +4,37 @@
 
 // ===== Responsive Breakpoints Mixin =====
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == 'xs' {
+  @if $breakpoint =='xs' {
     @media (max-width: #{$breakpoint-sm - 1px}) {
       @content;
     }
-  } @else if $breakpoint == 'sm' {
+  }
+
+  @else if $breakpoint =='sm' {
     @media (min-width: #{$breakpoint-sm}) {
       @content;
     }
-  } @else if $breakpoint == 'md' {
+  }
+
+  @else if $breakpoint =='md' {
     @media (min-width: #{$breakpoint-md}) {
       @content;
     }
-  } @else if $breakpoint == 'lg' {
+  }
+
+  @else if $breakpoint =='lg' {
     @media (min-width: #{$breakpoint-lg}) {
       @content;
     }
-  } @else if $breakpoint == 'xl' {
+  }
+
+  @else if $breakpoint =='xl' {
     @media (min-width: #{$breakpoint-xl}) {
       @content;
     }
-  } @else if $breakpoint == 'xxl' {
+  }
+
+  @else if $breakpoint =='xxl' {
     @media (min-width: #{$breakpoint-xxl}) {
       @content;
     }
@@ -79,6 +89,17 @@
 }
 
 // ===== Button Mixin =====
+@mixin button-reset {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
 @mixin button-base {
   display: inline-flex;
   align-items: center;
@@ -91,7 +112,7 @@
   cursor: pointer;
   transition: all $transition-base;
   text-decoration: none;
-  
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -195,7 +216,7 @@
 // ===== Aspect Ratio Mixin =====
 @mixin aspect-ratio($width, $height) {
   position: relative;
-  
+
   &::before {
     content: '';
     display: block;
@@ -205,12 +226,10 @@
 
 // ===== Loading Skeleton Mixin =====
 @mixin skeleton-loading {
-  background: linear-gradient(
-    90deg,
-    var(--skeleton-base) 0%,
-    var(--skeleton-highlight) 50%,
-    var(--skeleton-base) 100%
-  );
+  background: linear-gradient(90deg,
+      var(--skeleton-base) 0%,
+      var(--skeleton-highlight) 50%,
+      var(--skeleton-base) 100%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s ease-in-out infinite;
 }
@@ -219,6 +238,7 @@
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }

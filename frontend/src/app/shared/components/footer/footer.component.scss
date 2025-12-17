@@ -1,0 +1,28 @@
+@import '../../../../styles/abstracts/variables';
+@import '../../../../styles/abstracts/mixins';
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    margin-bottom: $spacing-md;
+
+    .footer-logo {
+        height: 48px;
+        width: auto;
+    }
+
+    .footer-brand-name {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: $primary-color;
+        margin: 0;
+    }
+}
+
+.footer-description {
+    color: var(--text-muted);
+    line-height: $line-height-relaxed;
+    font-size: $font-size-sm;
+    max-width: 300px;
+}

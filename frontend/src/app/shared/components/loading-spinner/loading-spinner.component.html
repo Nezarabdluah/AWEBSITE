@@ -1,0 +1,11 @@
+<div class="loading-spinner" [class.loading-spinner--overlay]="overlay"
+    [class.loading-spinner--small]="size === 'small'" [class.loading-spinner--medium]="size === 'medium'"
+    [class.loading-spinner--large]="size === 'large'">
+
+    <div class="loading-spinner__content">
+        <div class="loading-spinner__spinner" [style.border-top-color]="color" [style.border-left-color]="color"></div>
+        @if (text) {
+        <p class="loading-spinner__text">{{ text }}</p>
+        }
+    </div>
+</div>

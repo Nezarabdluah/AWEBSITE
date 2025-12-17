@@ -1,0 +1,18 @@
+<nav class="breadcrumb" aria-label="breadcrumb">
+    <ol class="breadcrumb__list">
+        @for (item of items; track $index) {
+        <li class="breadcrumb__item" [class.breadcrumb__item--active]="item.active">
+            @if (item.url && !item.active) {
+            <a [routerLink]="item.url" class="breadcrumb__link">
+                {{ item.label }}
+            </a>
+            } @else {
+            <span class="breadcrumb__text">{{ item.label }}</span>
+            }
+
+            @if (!item.active && $index < items.length - 1) { <span class="breadcrumb__separator">/</span>
+                }
+        </li>
+        }
+    </ol>
+</nav>

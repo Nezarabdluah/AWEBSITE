@@ -1,0 +1,97 @@
+<div class="university-list-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">الجامعات العالمية</h1>
+            <p class="page-subtitle">اكتشف أفضل الجامعات حول العالم</p>
+        </div>
+
+        <!-- Filters Bar -->
+        <div class="filters-bar">
+            <div class="filters-bar__search">
+                <input type="text" class="search-input" placeholder="ابحث عن جامعة..." [value]="searchQuery()"
+                    (input)="onSearch($any($event.target).value)">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="filters-bar__controls">
+                <select class="filter-select" [value]="selectedCountry() || ''"
+                    (change)="onCountryChange($any($event.target).value)">
+                    <option value="">جميع الدول</option>
+                    @for (country of countries(); track country) {
+                    <option [value]="country">{{ country }}</option>
+                    }
+                </select>
+
+                <select class="filter-select" [value]="filters.sort_by"
+                    (change)="onSortChange($any($event.target).value)">
+                    <option value="ranking_world">الترتيب العالمي</option>
+                    <option value="name">الاسم</option>
+                    <option value="students_count">عدد الطلاب</option>
+                    <option value="tuition_fee_min">الرسوم</option>
+                </select>
+
+                @if (selectedCountry() || searchQuery()) {
+                <button class="btn btn-sm btn-outline" (click)="clearFilters()">
+                    مسح الفلاتر
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="results-info">
+            <p>عرض {{ universities().length }} من أصل {{ total() }} جامعة</p>
+        </div>
+
+        <!-- Loading State -->
+        @if (loading()) {
+        <div class="loading-state">
+            <app-loading-spinner [size]="'large'"></app-loading-spinner>
+            <p>جاري تحميل الجامعات...</p>
+        </div>
+        }
+
+        <!-- Error State -->
+        @else if (error()) {
+        <div class="error-state">
+            <p class="error-message">{{ error() }}</p>
+            <button class="btn btn-primary" (click)="loadUniversities()">
+                إعادة المحاولة
+            </button>
+        </div>
+        }
+
+        <!-- Universities Grid -->
+        @else if (universities().length > 0) {
+        <div class="universities-grid">
+            @for (university of universities(); track university.id) {
+            <app-university-card [university]="university" (viewDetails)="onViewDetails($event)"
+                (addToFavorites)="onAddToFavorites($event)">
+            </app-university-card>
+            }
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages() > 1) {
+        <div class="pagination-wrapper">
+            <app-pagination [currentPage]="currentPage()" [totalPages]="totalPages()"
+                (pageChange)="onPageChange($event)">
+            </app-pagination>
+        </div>
+        }
+        }
+
+        <!-- Empty State -->
+        @else {
+        <div class="empty-state">
+            <div class="empty-icon">🔍</div>
+            <h3>لا توجد نتائج</h3>
+            <p>لم نجد أي جامعات تطابق البحث. جرب تغيير الفلاتر.</p>
+            <button class="btn btn-primary" (click)="clearFilters()">
+                مسح الفلاتر
+            </button>
+        </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="auth-layout">
+    <!-- Brand/Logo -->
+    <div class="auth-layout__brand">
+        <a routerLink="/" class="brand-link">
+            <h1 class="brand-logo">🎓 Your-Uni</h1>
+        </a>
+    </div>
+
+    <!-- Main Content Area (Router Outlet) -->
+    <main class="auth-layout__content">
+        <router-outlet></router-outlet>
+    </main>
+
+    <!-- Footer -->
+    <footer class="auth-layout__footer">
+        <p>&copy; {{ currentYear }} Your-Uni. جميع الحقوق محفوظة.</p>
+        <div class="auth-layout__links">
+            <a routerLink="/privacy">سياسة الخصوصية</a>
+            <span>•</span>
+            <a routerLink="/terms">الشروط والأحكام</a>
+        </div>
+    </footer>
+</div>

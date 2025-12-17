@@ -1,0 +1,146 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.file-upload {
+    &__dropzone {
+        border: 2px dashed var(--border-color);
+        border-radius: $radius-lg;
+        padding: $spacing-2xl;
+        text-align: center;
+        transition: all $transition-base;
+        cursor: pointer;
+
+        &:hover {
+            border-color: var(--primary-color);
+            background-color: rgba($primary-color, 0.05);
+        }
+
+        &--dragging {
+            border-color: var(--primary-color);
+            background-color: rgba($primary-color, 0.1);
+            transform: scale(1.02);
+        }
+    }
+
+    &__input {
+        display: none;
+    }
+
+    &__content {
+        pointer-events: none;
+    }
+
+    &__icon {
+        font-size: 3rem;
+        margin-bottom: $spacing-md;
+    }
+
+    &__text {
+        color: var(--text-color);
+        font-size: $font-size-base;
+        margin: 0 0 $spacing-xs 0;
+    }
+
+    &__browse {
+        @include button-reset;
+        color: var(--primary-color);
+        font-weight: $font-weight-semibold;
+        text-decoration: underline;
+        cursor: pointer;
+        pointer-events: auto;
+
+        &:hover {
+            color: var(--primary-color-dark);
+        }
+    }
+
+    &__hint {
+        color: var(--text-muted);
+        font-size: $font-size-sm;
+        margin: 0;
+    }
+
+    &__error {
+        margin-top: $spacing-md;
+        padding: $spacing-sm $spacing-md;
+        background-color: rgba($error-color, 0.1);
+        border: 1px solid $error-color;
+        border-radius: $radius-md;
+        color: $error-color;
+        font-size: $font-size-sm;
+    }
+
+    &__files {
+        margin-top: $spacing-md;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-sm;
+    }
+
+    &__file {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+        padding: $spacing-md;
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: $radius-md;
+    }
+
+    &__preview,
+    &__file-icon {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: $radius-sm;
+        flex-shrink: 0;
+    }
+
+    &__file-icon {
+        @include flex-center;
+        background-color: var(--hover-bg);
+        font-size: 2rem;
+    }
+
+    &__file-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__file-name {
+        margin: 0 0 $spacing-xs 0;
+        font-size: $font-size-base;
+        font-weight: $font-weight-medium;
+        color: var(--text-color);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &__file-size {
+        margin: 0;
+        font-size: $font-size-sm;
+        color: var(--text-muted);
+    }
+
+    &__remove {
+        @include button-reset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: $radius-full;
+        background-color: transparent;
+        color: var(--text-muted);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all $transition-base;
+        flex-shrink: 0;
+
+        &:hover {
+            background-color: rgba($error-color, 0.1);
+            color: $error-color;
+        }
+    }
+}

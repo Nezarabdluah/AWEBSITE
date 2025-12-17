@@ -1,0 +1,55 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.breadcrumb {
+    padding: $spacing-md 0;
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: $spacing-xs;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+
+        &--active {
+            color: var(--text-muted);
+        }
+    }
+
+    &__link {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: $transition-base;
+
+        &:hover {
+            color: var(--primary-color-dark);
+            text-decoration: underline;
+        }
+    }
+
+    &__text {
+        color: var(--text-muted);
+    }
+
+    &__separator {
+        color: var(--text-muted);
+        margin: 0 $spacing-xs;
+    }
+}
+
+// RTL Support
+[dir='rtl'] {
+    .breadcrumb {
+        &__separator {
+            transform: scaleX(-1);
+        }
+    }
+}

@@ -100,6 +100,13 @@ export class AuthService {
   }
 
   /**
+   * الحصول على المستخدم الحالي كـ signal (للاستخدام مع signals)
+   */
+  currentUser() {
+    return this.currentUserSubject.value;
+  }
+
+  /**
    * التحقق من تسجيل الدخول
    */
   isAuthenticated(): boolean {
@@ -107,18 +114,10 @@ export class AuthService {
   }
 
   /**
-   * الحصول على Token
+   * الحصول على التوكن
    */
   getToken(): string | null {
     return this.storageService.get<string>(STORAGE_KEYS.AUTH_TOKEN);
-  }
-
-  /**
-   * التحقق من صلاحية المستخدم
-   */
-  hasRole(role: string): boolean {
-    const user = this.getCurrentUser();
-    return user?.role === role;
   }
 
   /**

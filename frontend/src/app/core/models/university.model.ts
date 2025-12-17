@@ -2,36 +2,38 @@
 export interface University {
   id: number;
   name: string;
-  nameEn?: string;
+  name_en?: string;
   slug: string;
-  description: string;
-  descriptionEn?: string;
+  description?: string;
+  description_en?: string;
   country: string;
   city: string;
   address?: string;
-  logo: string;
-  coverImage?: string;
   website?: string;
   email?: string;
   phone?: string;
-  established?: number;
-  ranking?: number;
-  tuitionFees?: TuitionFees;
-  admissionRequirements?: string;
-  isActive: boolean;
-  isFeatured: boolean;
-  gallery?: GalleryImage[];
-  specializations?: string[];
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-// رسوم الدراسة
-export interface TuitionFees {
-  min: number;
-  max: number;
-  currency: string;
-  period: 'yearly' | 'semester';
+  type?: 'public' | 'private' | 'international';
+  founded_year?: number;
+  image?: string;
+  logo?: string;
+  ranking_world?: number;
+  ranking_local?: number;
+  rating?: number;
+  students_count?: number;
+  faculty_count?: number;
+  international_students?: number;
+  tuition_fee_min?: number;
+  tuition_fee_max?: number;
+  application_fee?: number;
+  acceptance_rate?: number;
+  programs_count?: number;
+  accreditation?: string;
+  facilities?: string[];
+  requirements?: string[];
+  is_active: boolean;
+  is_featured?: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
 // صورة المعرض
@@ -40,17 +42,4 @@ export interface GalleryImage {
   url: string;
   title?: string;
   order: number;
-}
-
-// فلتر البحث عن الجامعات
-export interface UniversityFilter {
-  search?: string;
-  country?: string;
-  city?: string;
-  minFees?: number;
-  maxFees?: number;
-  specialization?: string;
-  featured?: boolean;
-  page?: number;
-  perPage?: number;
 }

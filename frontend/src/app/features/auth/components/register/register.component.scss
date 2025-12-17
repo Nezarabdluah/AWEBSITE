@@ -1,0 +1,159 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.register-page {
+    min-height: 100vh;
+    @include flex-center;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-dark) 100%);
+    padding: $spacing-lg;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.register-box {
+    background-color: var(--card-bg);
+    border-radius: $radius-xl;
+    box-shadow: $shadow-2xl;
+    padding: $spacing-2xl;
+    animation: slideUp 0.4s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: $spacing-xl;
+}
+
+.register-title {
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: var(--heading-color);
+    margin: 0 0 $spacing-sm 0;
+}
+
+.register-subtitle {
+    color: var(--text-muted);
+    font-size: $font-size-base;
+    margin: 0;
+}
+
+.register-form {
+    .form-group {
+        margin-bottom: $spacing-md;
+    }
+
+    .password-input {
+        position: relative;
+
+        .form-input {
+            padding-right: 45px;
+        }
+
+        .password-toggle {
+            @include button-reset;
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            @include flex-center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            border-radius: $radius-sm;
+            transition: background-color $transition-base;
+
+            &:hover {
+                background-color: var(--hover-bg);
+            }
+        }
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: flex-start;
+        gap: $spacing-xs;
+        cursor: pointer;
+        font-size: $font-size-sm;
+        color: var(--text-color);
+
+        input[type="checkbox"] {
+            margin-top: 4px;
+            cursor: pointer;
+        }
+
+        .link {
+            color: var(--primary-color);
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .btn-block {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: $spacing-sm;
+        margin-top: $spacing-lg;
+    }
+}
+
+.register-footer {
+    margin-top: $spacing-lg;
+    padding-top: $spacing-lg;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+
+    p {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: $font-size-sm;
+    }
+
+    .login-link {
+        color: var(--primary-color);
+        font-weight: $font-weight-semibold;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// RTL Support
+[dir='rtl'] {
+    .register-form {
+        .password-input {
+            .form-input {
+                padding-right: $spacing-md;
+                padding-left: 45px;
+            }
+
+            .password-toggle {
+                right: auto;
+                left: 12px;
+            }
+        }
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

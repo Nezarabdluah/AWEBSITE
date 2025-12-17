@@ -1,0 +1,240 @@
+<div class="university-detail-page">
+    <!-- Breadcrumb -->
+    <div class="container">
+        <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+    </div>
+
+    <!-- Loading State -->
+    @if (loading()) {
+    <div class="container">
+        <div class="loading-state">
+            <app-loading-spinner [size]="'large'"></app-loading-spinner>
+            <p>جاري تحميل بيانات الجامعة...</p>
+        </div>
+    </div>
+    }
+
+    <!-- Error State -->
+    @else if (error()) {
+    <div class="container">
+        <div class="error-state">
+            <p class="error-message">{{ error() }}</p>
+            <a routerLink="/universities" class="btn btn-primary">
+                العودة للقائمة
+            </a>
+        </div>
+    </div>
+    }
+
+    <!-- University Details -->
+    @else if (university(); as uni) {
+    <!-- Hero Section -->
+    <div class="university-hero">
+        <div class="university-hero__image">
+            <img [src]="uni.image" [alt]="uni.name">
+            <div class="university-hero__overlay"></div>
+        </div>
+        <div class="container university-hero__content">
+            <div class="university-hero__info">
+                @if (uni.logo) {
+                <img [src]="uni.logo" [alt]="uni.name" class="university-logo">
+                }
+                <div>
+                    <h1 class="university-name">{{ uni.name }}</h1>
+                    @if (uni.name_en) {
+                    <p class="university-name-en">{{ uni.name_en }}</p>
+                    }
+                    <div class="university-meta">
+                        <span class="meta-item">📍 {{ uni.city }}, {{ uni.country }}</span>
+                        @if (uni.founded_year) {
+                        <span class="meta-item">📅 تأسست {{ uni.founded_year }}</span>
+                        }
+                        @if (uni.ranking_world) {
+                        <span class="meta-item ranking">🏆 #{{ uni.ranking_world }} عالمياً</span>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="university-hero__actions">
+                <button class="btn btn-primary btn-lg" (click)="applyNow()">
+                    قدّم الآن
+                </button>
+                <button class="btn btn-outline btn-lg" (click)="addToFavorites()">
+                    ♥ حفظ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="university-content">
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">🎓</div>
+                    <div class="stat-content">
+                        <div class="stat-value">{{ formatNumber(uni.students_count) }}</div>
+                        <div class="stat-label">طالب</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👨‍🏫</div>
+                    <div class="stat-content">
+                        <div class="stat-value">{{ formatNumber(uni.faculty_count) }}</div>
+                        <div class="stat-label">عضو هيئة تدريس</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-content">
+                        <div class="stat-value">{{ formatNumber(uni.programs_count) }}</div>
+                        <div class="stat-label">برنامج دراسي</div>
+                    </div>
+                </div>
+                @if (uni.rating) {
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <div class="stat-value">{{ uni.rating }}</div>
+                        <div class="stat-label">التقييم</div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab" [class.tab--active]="activeTab() === 'overview'" (click)="setActiveTab('overview')">
+                    نظرة عامة
+                </button>
+                <button class="tab" [class.tab--active]="activeTab() === 'programs'" (click)="setActiveTab('programs')">
+                    البرامج الدراسية
+                </button>
+                <button class="tab" [class.tab--active]="activeTab() === 'admission'"
+                    (click)="setActiveTab('admission')">
+                    القبول والرسوم
+                </button>
+                <button class="tab" [class.tab--active]="activeTab() === 'contact'" (click)="setActiveTab('contact')">
+                    التواصل
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Overview Tab -->
+                @if (activeTab() === 'overview') {
+                <div class="tab-pane">
+                    <h2>عن الجامعة</h2>
+                    @if (uni.description) {
+                    <p class="description">{{ uni.description }}</p>
+                    }
+
+                    @if (uni.accreditation) {
+                    <div class="info-section">
+                        <h3>الاعتماد الأكاديمي</h3>
+                        <p>{{ uni.accreditation }}</p>
+                    </div>
+                    }
+                </div>
+                }
+
+                <!-- Programs Tab -->
+                @if (activeTab() === 'programs') {
+                <div class="tab-pane">
+                    <h2>البرامج الدراسية</h2>
+                    <p class="description">
+                        تقدم الجامعة {{ formatNumber(uni.programs_count) }} برنامج دراسي في مختلف التخصصات.
+                    </p>
+                    <!-- TODO: Add programs list -->
+                </div>
+                }
+
+                <!-- Admission Tab -->
+                @if (activeTab() === 'admission') {
+                <div class="tab-pane">
+                    <h2>القبول والرسوم</h2>
+
+                    <div class="admission-info">
+                        @if (uni.tuition_fee_min) {
+                        <div class="info-card">
+                            <h3>الرسوم الدراسية السنوية</h3>
+                            <p class="fee-amount">
+                                {{ formatCurrency(uni.tuition_fee_min) }}
+                                @if (uni.tuition_fee_max && uni.tuition_fee_max !== uni.tuition_fee_min) {
+                                - {{ formatCurrency(uni.tuition_fee_max) }}
+                                }
+                            </p>
+                        </div>
+                        }
+
+                        @if (uni.application_fee) {
+                        <div class="info-card">
+                            <h3>رسوم التقديم</h3>
+                            <p class="fee-amount">{{ formatCurrency(uni.application_fee) }}</p>
+                        </div>
+                        }
+
+                        @if (uni.acceptance_rate) {
+                        <div class="info-card">
+                            <h3>نسبة القبول</h3>
+                            <p class="fee-amount">{{ uni.acceptance_rate }}%</p>
+                        </div>
+                        }
+                    </div>
+                </div>
+                }
+
+                <!-- Contact Tab -->
+                @if (activeTab() === 'contact') {
+                <div class="tab-pane">
+                    <h2>معلومات التواصل</h2>
+
+                    <div class="contact-info">
+                        @if (uni.website) {
+                        <div class="contact-item">
+                            <span class="contact-icon">🌐</span>
+                            <div>
+                                <strong>الموقع الإلكتروني</strong>
+                                <a [href]="uni.website" target="_blank" rel="noopener">{{ uni.website }}</a>
+                            </div>
+                        </div>
+                        }
+
+                        @if (uni.email) {
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <div>
+                                <strong>البريد الإلكتروني</strong>
+                                <a [href]="'mailto:' + uni.email">{{ uni.email }}</a>
+                            </div>
+                        </div>
+                        }
+
+                        @if (uni.phone) {
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <div>
+                                <strong>الهاتف</strong>
+                                <a [href]="'tel:' + uni.phone">{{ uni.phone }}</a>
+                            </div>
+                        </div>
+                        }
+
+                        @if (uni.address) {
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <div>
+                                <strong>العنوان</strong>
+                                <p>{{ uni.address }}</p>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    }
+</div>

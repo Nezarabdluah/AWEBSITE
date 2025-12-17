@@ -1,0 +1,61 @@
+<div class="institute-card">
+    <a [routerLink]="['/institutes', institute.id]" class="institute-card__link">
+        <!-- Image -->
+        <div class="institute-card__image">
+            <img [src]="institute.image" [alt]="institute.name">
+
+            <!-- Type Badge -->
+            <span class="institute-card__type">{{ getTypeLabel(institute.type) }}</span>
+        </div>
+
+        <!-- Content -->
+        <div class="institute-card__content">
+            <h3 class="institute-card__name">{{ institute.name }}</h3>
+
+            @if (institute.name_en) {
+            <p class="institute-card__name-en">{{ institute.name_en }}</p>
+            }
+
+            <div class="institute-card__location">
+                <span class="location-icon">📍</span>
+                <span>{{ institute.city }}, {{ institute.country }}</span>
+            </div>
+
+            @if (institute.description) {
+            <p class="institute-card__description">{{ institute.description }}</p>
+            }
+
+            <div class="institute-card__stats">
+                @if (institute.programs_count) {
+                <div class="stat">
+                    <span class="stat__icon">📚</span>
+                    <span class="stat__value">{{ formatNumber(institute.programs_count) }} برنامج</span>
+                </div>
+                }
+
+                @if (institute.students_count) {
+                <div class="stat">
+                    <span class="stat__icon">🎓</span>
+                    <span class="stat__value">{{ formatNumber(institute.students_count) }} طالب</span>
+                </div>
+                }
+
+                @if (institute.rating) {
+                <div class="stat">
+                    <span class="stat__icon">⭐</span>
+                    <span class="stat__value">{{ institute.rating }}</span>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Actions -->
+        @if (showActions) {
+        <div class="institute-card__actions">
+            <button class="btn btn-sm btn-primary btn-block">
+                عرض التفاصيل
+            </button>
+        </div>
+        }
+    </a>
+</div>

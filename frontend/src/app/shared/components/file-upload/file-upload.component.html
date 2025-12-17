@@ -1,0 +1,50 @@
+<div class="file-upload">
+    <div class="file-upload__dropzone" [class.file-upload__dropzone--dragging]="isDragging" (drop)="onDrop($event)"
+        (dragover)="onDragOver($event)" (dragleave)="onDragLeave()">
+
+        <input type="file" class="file-upload__input" [accept]="accept" [multiple]="multiple"
+            (change)="onFileSelect($event)" #fileInput>
+
+        <div class="file-upload__content">
+            <div class="file-upload__icon">📁</div>
+            <p class="file-upload__text">
+                اسحب الملفات هنا أو
+                <button type="button" class="file-upload__browse" (click)="fileInput.click()">
+                    تصفح
+                </button>
+            </p>
+            <p class="file-upload__hint">
+                الحد الأقصى: {{ formatFileSize(maxSize) }}
+            </p>
+        </div>
+    </div>
+
+    @if (error) {
+    <div class="file-upload__error">
+        {{ error }}
+    </div>
+    }
+
+    @if (files.length > 0) {
+    <div class="file-upload__files">
+        @for (uploadedFile of files; track $index) {
+        <div class="file-upload__file">
+            @if (showPreview && uploadedFile.preview) {
+            <img [src]="uploadedFile.preview" alt="Preview" class="file-upload__preview">
+            } @else {
+            <div class="file-upload__file-icon">📄</div>
+            }
+
+            <div class="file-upload__file-info">
+                <p class="file-upload__file-name">{{ uploadedFile.file.name }}</p>
+                <p class="file-upload__file-size">{{ formatFileSize(uploadedFile.file.size) }}</p>
+            </div>
+
+            <button type="button" class="file-upload__remove" (click)="removeFile($index)" aria-label="Remove file">
+                ×
+            </button>
+        </div>
+        }
+    </div>
+    }
+</div>

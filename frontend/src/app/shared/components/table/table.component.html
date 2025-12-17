@@ -1,0 +1,67 @@
+<div class="table-wrapper">
+    @if (loading) {
+    <div class="table__loading">
+        <div class="spinner"></div>
+        <p>جاري التحميل...</p>
+    </div>
+    } @else {
+    <table class="table" [class.table--hoverable]="hoverable">
+        <thead class="table__head">
+            <tr>
+                @if (selectable) {
+                <th class="table__cell table__cell--checkbox">
+                    <input type="checkbox" [checked]="selectedRows.size === data.length && data.length > 0"
+                        (change)="toggleAllRows()">
+                </th>
+                }
+
+                @for (column of columns; track column.key) {
+                <th class="table__cell table__cell--header" [class.table__cell--sortable]="column.sortable"
+                    [style.width]="column.width" (click)="onSort(column)">
+                    <div class="table__header-content">
+                        <span>{{ column.label }}</span>
+                        @if (column.sortable && sortColumn === column.key) {
+                        <span class="table__sort-icon">
+                            {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                        </span>
+                        }
+                    </div>
+                </th>
+                }
+            </tr>
+        </thead>
+
+        <tbody class="table__body">
+            @if (data.length === 0) {
+            <tr>
+                <td [colSpan]="columns.length + (selectable ? 1 : 0)" class="table__empty">
+                    لا توجد بيانات
+                </td>
+            </tr>
+            } @else {
+            @for (row of data; track $index) {
+            <tr class="table__row" [class.table__row--selected]="isRowSelected(row)" (click)="onRowClick(row)">
+
+                @if (selectable) {
+                <td class="table__cell table__cell--checkbox" (click)="$event.stopPropagation()">
+                    <input type="checkbox" [checked]="isRowSelected(row)" (change)="toggleRowSelection(row)">
+                </td>
+                }
+
+                @for (column of columns; track column.key) {
+                <td class="table__cell">
+                    @if (cellTemplate) {
+                    <ng-container *ngTemplateOutlet="cellTemplate; context: { $implicit: row, column: column }">
+                    </ng-container>
+                    } @else {
+                    {{ row[column.key] }}
+                    }
+                </td>
+                }
+            </tr>
+            }
+            }
+        </tbody>
+    </table>
+    }
+</div>

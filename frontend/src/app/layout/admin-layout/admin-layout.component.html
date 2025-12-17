@@ -1,0 +1,65 @@
+<div class="admin-layout" [class.admin-layout--collapsed]="sidebarCollapsed">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar__header">
+            <h2 class="admin-sidebar__logo">🎓 Admin Panel</h2>
+            <button class="admin-sidebar__toggle" (click)="toggleSidebar()" aria-label="Toggle sidebar">
+                {{ sidebarCollapsed ? '→' : '←' }}
+            </button>
+        </div>
+
+        <nav class="admin-sidebar__nav">
+            @for (item of menuItems; track item.route) {
+            <a [routerLink]="item.route" routerLinkActive="active" class="admin-sidebar__link">
+                <span class="admin-sidebar__icon">{{ item.icon }}</span>
+                @if (!sidebarCollapsed) {
+                <span class="admin-sidebar__label">{{ item.label }}</span>
+                }
+            </a>
+            }
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="admin-main">
+        <!-- Top Bar -->
+        <header class="admin-header">
+            <div class="admin-header__left">
+                <button class="btn-icon mobile-toggle" (click)="toggleSidebar()">
+                    ☰
+                </button>
+                <h1 class="admin-header__title">لوحة التحكم</h1>
+            </div>
+
+            <div class="admin-header__right">
+                <!-- Notifications -->
+                <button class="btn-icon" aria-label="Notifications">
+                    🔔
+                    <span class="badge">3</span>
+                </button>
+
+                <!-- User Menu -->
+                <div class="admin-header__user">
+                    @if (currentUser) {
+                    <img [src]="currentUser.image || 'https://i.pravatar.cc/40'" [alt]="currentUser.name"
+                        class="admin-header__avatar">
+                    <span class="admin-header__name">{{ currentUser.name }}</span>
+                    }
+                    <button class="btn btn-sm btn-outline" (click)="logout()">
+                        تسجيل الخروج
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="admin-content">
+            <router-outlet></router-outlet>
+        </main>
+
+        <!-- Footer -->
+        <footer class="admin-footer">
+            <p>&copy; {{ currentYear }} Your-Uni Admin Panel. All rights reserved.</p>
+        </footer>
+    </div>
+</div>

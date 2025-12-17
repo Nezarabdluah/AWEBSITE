@@ -1,0 +1,111 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: $radius-lg;
+    border: 1px solid var(--border-color);
+
+    &::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--hover-bg);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: $radius-sm;
+    }
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-bg);
+
+    &__loading {
+        @include flex-center;
+        @include flex-column;
+        gap: $spacing-md;
+        padding: $spacing-2xl;
+    }
+
+    &__head {
+        background-color: var(--hover-bg);
+    }
+
+    &__cell {
+        padding: $spacing-md $spacing-lg;
+        text-align: right;
+        border-bottom: 1px solid var(--border-color);
+
+        &--header {
+            font-weight: $font-weight-semibold;
+            color: var(--heading-color);
+            font-size: $font-size-sm;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        &--sortable {
+            cursor: pointer;
+            user-select: none;
+
+            &:hover {
+                background-color: rgba($primary-color, 0.05);
+            }
+        }
+
+        &--checkbox {
+            width: 40px;
+            text-align: center;
+
+            input[type="checkbox"] {
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $spacing-sm;
+    }
+
+    &__sort-icon {
+        color: var(--primary-color);
+        font-size: 1.2em;
+    }
+
+    &__row {
+        transition: background-color $transition-base;
+
+        &--selected {
+            background-color: rgba($primary-color, 0.1);
+        }
+    }
+
+    &--hoverable &__row:hover {
+        background-color: var(--hover-bg);
+        cursor: pointer;
+    }
+
+    &__empty {
+        padding: $spacing-2xl;
+        text-align: center;
+        color: var(--text-muted);
+    }
+}
+
+// RTL Support
+[dir='ltr'] {
+    .table {
+        &__cell {
+            text-align: left;
+        }
+    }
+}

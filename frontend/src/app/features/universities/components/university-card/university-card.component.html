@@ -1,0 +1,81 @@
+<div class="university-card" [class.university-card--compact]="compact">
+    <a [routerLink]="['/universities', university.id]" class="university-card__link">
+        <!-- Image -->
+        <div class="university-card__image">
+            <img [src]="university.image" [alt]="university.name">
+
+            <!-- Ranking Badge -->
+            @if (university.ranking_world) {
+            <span class="university-card__ranking">#{{ university.ranking_world }}</span>
+            }
+
+            <!-- Favorite Button -->
+            @if (showActions) {
+            <button class="university-card__favorite" (click)="onAddToFavorites($event)" aria-label="Add to favorites">
+                ♥
+            </button>
+            }
+        </div>
+
+        <!-- Content -->
+        <div class="university-card__content">
+            <h3 class="university-card__name">{{ university.name }}</h3>
+
+            <div class="university-card__location">
+                <span class="location-icon">📍</span>
+                <span>{{ university.city }}, {{ university.country }}</span>
+            </div>
+
+            @if (!compact) {
+            <div class="university-card__stats">
+                <div class="stat">
+                    <span class="stat__icon">🎓</span>
+                    <div class="stat__content">
+                        <span class="stat__value">{{ formatNumber(university.students_count) }}</span>
+                        <span class="stat__label">طالب</span>
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <span class="stat__icon">📚</span>
+                    <div class="stat__content">
+                        <span class="stat__value">{{ formatNumber(university.programs_count) }}</span>
+                        <span class="stat__label">برنامج</span>
+                    </div>
+                </div>
+
+                @if (university.rating) {
+                <div class="stat">
+                    <span class="stat__icon">⭐</span>
+                    <div class="stat__content">
+                        <span class="stat__value">{{ university.rating }}</span>
+                        <span class="stat__label">التقييم</span>
+                    </div>
+                </div>
+                }
+            </div>
+
+            @if (university.tuition_fee_min) {
+            <div class="university-card__tuition">
+                <span class="tuition-label">الرسوم السنوية:</span>
+                <span class="tuition-value">
+                    {{ formatCurrency(university.tuition_fee_min) }}
+                    @if (university.tuition_fee_max && university.tuition_fee_max !== university.tuition_fee_min) {
+                    - {{ formatCurrency(university.tuition_fee_max) }}
+                    }
+                </span>
+            </div>
+            }
+            }
+        </div>
+
+        <!-- Actions -->
+        @if (showActions && !compact) {
+        <div class="university-card__actions">
+            <button class="btn btn-sm btn-primary btn-block">
+                عرض التفاصيل
+            </button>
+        </div>
+        }
+    </a>
+</div>
