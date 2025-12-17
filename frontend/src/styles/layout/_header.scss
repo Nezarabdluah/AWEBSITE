@@ -1,0 +1,92 @@
+// ============================================
+// Header - أنماط الهيدر
+// ============================================
+
+.app-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: $header-height;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    z-index: z('sticky');
+    backdrop-filter: blur(10px);
+
+    @include respond-to('xs') {
+        height: $header-height-mobile;
+    }
+}
+
+.header-container {
+    @extend .container;
+    height: 100%;
+    @include flex-between;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    text-decoration: none;
+
+    .brand-logo {
+        height: 40px;
+        width: auto;
+
+        @include respond-to('xs') {
+            height: 32px;
+        }
+    }
+
+    .brand-name {
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        color: $primary-color;
+
+        @include respond-to('xs') {
+            display: none;
+        }
+    }
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+
+    @include respond-to('md') {
+        display: none;
+    }
+}
+
+.nav-link {
+    color: var(--text-color);
+    font-weight: $font-weight-medium;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $radius-md;
+    transition: all $transition-base;
+
+    &:hover {
+        background-color: var(--hover-bg);
+        color: $primary-color;
+    }
+
+    &.active {
+        color: $primary-color;
+        background-color: rgba($primary-color, 0.1);
+    }
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+}
+
+.header-mobile-toggle {
+    display: none;
+
+    @include respond-to('md') {
+        display: flex;
+    }
+}

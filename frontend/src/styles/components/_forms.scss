@@ -1,0 +1,211 @@
+// ============================================
+// Forms - أنماط النماذج
+// ============================================
+
+// Form group
+.form-group {
+    margin-bottom: $spacing-lg;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// Form label
+.form-label {
+    display: block;
+    margin-bottom: $spacing-sm;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    color: var(--text-color);
+
+    &.required::after {
+        content: '*';
+        color: $error-color;
+        margin-left: $spacing-xs;
+    }
+}
+
+// Form input
+.form-input,
+.form-textarea,
+.form-select {
+    @include input-base;
+}
+
+.form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+// Input sizes
+.form-input-sm,
+.form-select-sm {
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-sm;
+}
+
+.form-input-lg,
+.form-select-lg {
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-lg;
+}
+
+// Input states
+.form-input,
+.form-textarea,
+.form-select {
+    &.is-valid {
+        border-color: $success-color;
+
+        &:focus {
+            box-shadow: 0 0 0 3px rgba($success-color, 0.1);
+        }
+    }
+
+    &.is-invalid {
+        border-color: $error-color;
+
+        &:focus {
+            box-shadow: 0 0 0 3px rgba($error-color, 0.1);
+        }
+    }
+}
+
+// Form feedback
+.form-feedback {
+    margin-top: $spacing-xs;
+    font-size: $font-size-sm;
+
+    &.feedback-success {
+        color: $success-color;
+    }
+
+    &.feedback-error {
+        color: $error-color;
+    }
+}
+
+// Checkbox & Radio
+.form-checkbox,
+.form-radio {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 1.25rem;
+        height: 1.25rem;
+        margin-right: $spacing-sm;
+        cursor: pointer;
+        accent-color: $primary-color;
+    }
+
+    label {
+        cursor: pointer;
+        user-select: none;
+    }
+}
+
+// RTL support
+[dir='rtl'] {
+
+    .form-checkbox,
+    .form-radio {
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 0;
+            margin-left: $spacing-sm;
+        }
+    }
+}
+
+// Input group
+.input-group {
+    display: flex;
+    align-items: stretch;
+
+    .form-input {
+        flex: 1;
+        border-radius: 0;
+
+        &:first-child {
+            border-top-left-radius: $radius-md;
+            border-bottom-left-radius: $radius-md;
+        }
+
+        &:last-child {
+            border-top-right-radius: $radius-md;
+            border-bottom-right-radius: $radius-md;
+        }
+    }
+
+    .input-group-text {
+        display: flex;
+        align-items: center;
+        padding: $spacing-sm $spacing-md;
+        background-color: var(--input-group-bg);
+        border: 1px solid var(--border-color);
+        font-size: $font-size-sm;
+        color: var(--text-muted);
+
+        &:first-child {
+            border-top-left-radius: $radius-md;
+            border-bottom-left-radius: $radius-md;
+            border-right: 0;
+        }
+
+        &:last-child {
+            border-top-right-radius: $radius-md;
+            border-bottom-right-radius: $radius-md;
+            border-left: 0;
+        }
+    }
+}
+
+// Switch
+.form-switch {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    input[type="checkbox"] {
+        width: 2.5rem;
+        height: 1.5rem;
+        margin-right: $spacing-sm;
+        appearance: none;
+        background-color: $gray-300;
+        border-radius: $radius-full;
+        position: relative;
+        cursor: pointer;
+        transition: background-color $transition-base;
+
+        &::before {
+            content: '';
+            position: absolute;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: $white;
+            border-radius: $radius-full;
+            top: 50%;
+            left: 2px;
+            transform: translateY(-50%);
+            transition: left $transition-base;
+        }
+
+        &:checked {
+            background-color: $primary-color;
+
+            &::before {
+                left: calc(100% - 1.25rem - 2px);
+            }
+        }
+    }
+
+    label {
+        cursor: pointer;
+        user-select: none;
+    }
+}

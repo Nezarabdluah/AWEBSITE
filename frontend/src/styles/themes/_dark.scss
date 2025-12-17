@@ -1,0 +1,38 @@
+// ============================================
+// Dark Theme - السمة الداكنة
+// ============================================
+
+[data-theme='dark'] {
+    // Background colors
+    --body-bg: #{$gray-900};
+    --card-bg: #{$gray-800};
+    --header-bg: rgba(31, 41, 55, 0.8);
+    --footer-bg: #{$gray-900};
+    --sidebar-bg: #{$gray-800};
+    --hover-bg: #{$gray-700};
+    --input-bg: #{$gray-800};
+    --input-group-bg: #{$gray-700};
+    --disabled-bg: #{$gray-700};
+
+    // Text colors
+    --text-color: #{$gray-100};
+    --heading-color: #{$white};
+    --text-muted: #{$gray-400};
+
+    // Border colors
+    --border-color: #{$gray-700};
+
+    // Skeleton loading
+    --skeleton-base: #{$gray-700};
+    --skeleton-highlight: #{$gray-600};
+
+    // Direction
+    --direction: ltr;
+    --text-align: left;
+}
+
+// Arabic RTL
+[lang='ar'][data-theme='dark'] {
+    --direction: rtl;
+    --text-align: right;
+}

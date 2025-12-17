@@ -1,0 +1,417 @@
+// ============================================
+// Helper Classes - فئات مساعدة
+// ============================================
+
+// ===== Display =====
+.d-none {
+    display: none !important;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.d-inline {
+    display: inline !important;
+}
+
+.d-inline-block {
+    display: inline-block !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.d-inline-flex {
+    display: inline-flex !important;
+}
+
+.d-grid {
+    display: grid !important;
+}
+
+// ===== Flexbox =====
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
+
+.justify-start {
+    justify-content: flex-start;
+}
+
+.justify-end {
+    justify-content: flex-end;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+.items-end {
+    align-items: flex-end;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.items-baseline {
+    align-items: baseline;
+}
+
+.items-stretch {
+    align-items: stretch;
+}
+
+.flex-1 {
+    flex: 1 1 0%;
+}
+
+.flex-auto {
+    flex: 1 1 auto;
+}
+
+.flex-none {
+    flex: none;
+}
+
+.gap-xs {
+    gap: $spacing-xs;
+}
+
+.gap-sm {
+    gap: $spacing-sm;
+}
+
+.gap-md {
+    gap: $spacing-md;
+}
+
+.gap-lg {
+    gap: $spacing-lg;
+}
+
+.gap-xl {
+    gap: $spacing-xl;
+}
+
+// ===== Spacing (Margin & Padding) =====
+@each $name, $value in ('xs': $spacing-xs,
+    'sm': $spacing-sm,
+    'md': $spacing-md,
+    'lg': $spacing-lg,
+    'xl': $spacing-xl,
+    '2xl': $spacing-2xl,
+    '3xl': $spacing-3xl) {
+
+    // Margin
+    .m-#{$name} {
+        margin: $value;
+    }
+
+    .mt-#{$name} {
+        margin-top: $value;
+    }
+
+    .mr-#{$name} {
+        margin-right: $value;
+    }
+
+    .mb-#{$name} {
+        margin-bottom: $value;
+    }
+
+    .ml-#{$name} {
+        margin-left: $value;
+    }
+
+    .mx-#{$name} {
+        margin-left: $value;
+        margin-right: $value;
+    }
+
+    .my-#{$name} {
+        margin-top: $value;
+        margin-bottom: $value;
+    }
+
+    // Padding
+    .p-#{$name} {
+        padding: $value;
+    }
+
+    .pt-#{$name} {
+        padding-top: $value;
+    }
+
+    .pr-#{$name} {
+        padding-right: $value;
+    }
+
+    .pb-#{$name} {
+        padding-bottom: $value;
+    }
+
+    .pl-#{$name} {
+        padding-left: $value;
+    }
+
+    .px-#{$name} {
+        padding-left: $value;
+        padding-right: $value;
+    }
+
+    .py-#{$name} {
+        padding-top: $value;
+        padding-bottom: $value;
+    }
+}
+
+// Margin auto
+.m-auto {
+    margin: auto;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-auto {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+// ===== Width & Height =====
+.w-full {
+    width: 100%;
+}
+
+.w-auto {
+    width: auto;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.h-auto {
+    height: auto;
+}
+
+.h-screen {
+    height: 100vh;
+}
+
+// ===== Position =====
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.sticky {
+    position: sticky;
+}
+
+// ===== Overflow =====
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+
+.overflow-scroll {
+    overflow: scroll;
+}
+
+.overflow-x-auto {
+    overflow-x: auto;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+// ===== Border Radius =====
+.rounded-none {
+    border-radius: $radius-none;
+}
+
+.rounded-sm {
+    border-radius: $radius-sm;
+}
+
+.rounded {
+    border-radius: $radius-md;
+}
+
+.rounded-lg {
+    border-radius: $radius-lg;
+}
+
+.rounded-xl {
+    border-radius: $radius-xl;
+}
+
+.rounded-full {
+    border-radius: $radius-full;
+}
+
+// ===== Shadows =====
+.shadow-none {
+    box-shadow: none;
+}
+
+.shadow-sm {
+    box-shadow: $shadow-sm;
+}
+
+.shadow {
+    box-shadow: $shadow-md;
+}
+
+.shadow-lg {
+    box-shadow: $shadow-lg;
+}
+
+.shadow-xl {
+    box-shadow: $shadow-xl;
+}
+
+// ===== Container =====
+.container {
+    width: 100%;
+    max-width: $container-max-width;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $container-padding;
+    padding-right: $container-padding;
+}
+
+// ===== Background =====
+.bg-primary {
+    background-color: $primary-color;
+}
+
+.bg-secondary {
+    background-color: $secondary-color;
+}
+
+.bg-white {
+    background-color: $white;
+}
+
+.bg-transparent {
+    background-color: transparent;
+}
+
+// ===== Cursor =====
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-not-allowed {
+    cursor: not-allowed;
+}
+
+.cursor-default {
+    cursor: default;
+}
+
+// ===== User Select =====
+.select-none {
+    user-select: none;
+}
+
+.select-text {
+    user-select: text;
+}
+
+.select-all {
+    user-select: all;
+}
+
+// ===== Visibility =====
+.visible {
+    visibility: visible;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+// ===== Opacity =====
+.opacity-0 {
+    opacity: 0;
+}
+
+.opacity-50 {
+    opacity: 0.5;
+}
+
+.opacity-75 {
+    opacity: 0.75;
+}
+
+.opacity-100 {
+    opacity: 1;
+}
+
+// ===== Responsive Helpers =====
+@include respond-to('xs') {
+    .d-xs-none {
+        display: none !important;
+    }
+}
+
+@include respond-to('sm') {
+    .d-sm-none {
+        display: none !important;
+    }
+}
+
+@include respond-to('md') {
+    .d-md-none {
+        display: none !important;
+    }
+}
+
+@include respond-to('lg') {
+    .d-lg-none {
+        display: none !important;
+    }
+}

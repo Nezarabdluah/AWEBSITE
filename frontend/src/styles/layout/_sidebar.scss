@@ -1,0 +1,147 @@
+// ============================================
+// Sidebar - أنماط الشريط الجانبي
+// ============================================
+
+.app-sidebar {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    width: $sidebar-width;
+    height: calc(100vh - #{$header-height});
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    @include custom-scrollbar;
+    transition: width $transition-base, transform $transition-base;
+    z-index: z('fixed');
+
+    @include respond-to('md') {
+        transform: translateX(-100%);
+    }
+
+    &.sidebar-open {
+        @include respond-to('md') {
+            transform: translateX(0);
+        }
+    }
+
+    &.sidebar-collapsed {
+        width: $sidebar-collapsed-width;
+
+        .sidebar-item-text {
+            display: none;
+        }
+
+        .sidebar-submenu {
+            display: none;
+        }
+    }
+}
+
+// RTL Support
+[dir='rtl'] {
+    .app-sidebar {
+        left: auto;
+        right: 0;
+        border-right: none;
+        border-left: 1px sold var(--border-color);
+
+        @include respond-to('md') {
+            transform: translateX(100%);
+        }
+
+        &.sidebar-open {
+            @include respond-to('md') {
+                transform: translateX(0);
+            }
+        }
+    }
+}
+
+.sidebar-nav {
+    padding: $spacing-lg 0;
+}
+
+.sidebar-section {
+    margin-bottom: $spacing-xl;
+
+    .sidebar-section-title {
+        padding: 0 $spacing-lg;
+        margin-bottom: $spacing-sm;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+        text-transform: uppercase;
+        color: var(--text-muted);
+    }
+}
+
+.sidebar-item {
+    margin: $spacing-xs $spacing-md;
+
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+        padding: $spacing-sm $spacing-md;
+        border-radius: $radius-md;
+        color: var(--text-color);
+        font-weight: $font-weight-medium;
+        transition: all $transition-base;
+
+        &:hover {
+            background-color: var(--hover-bg);
+            color: $primary-color;
+        }
+
+        &.active {
+            background-color: rgba($primary-color, 0.1);
+            color: $primary-color;
+        }
+
+        .sidebar-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-badge {
+            margin-left: auto;
+            padding: 2px 6px;
+            background-color: $error-color;
+            color: $white;
+            font-size: $font-size-xs;
+            border-radius: $radius-full;
+        }
+    }
+}
+
+.sidebar-submenu {
+    margin-top: $spacing-xs;
+    margin-left: $spacing-xl;
+    padding-left: $spacing-md;
+    border-left: 2px solid var(--border-color);
+
+    .sidebar-item {
+        margin: $spacing-xs 0;
+    }
+}
+
+// Sidebar overlay for mobile
+.sidebar-overlay {
+    display: none;
+
+    @include respond-to('md') {
+        display: block;
+        @include absolute-full;
+        background-color: rgba($black, 0.5);
+        z-index: z('modal-backdrop');
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity $transition-base;
+
+        &.overlay-active {
+            opacity: 1;
+            pointer-events: all;
+        }
+    }
+}

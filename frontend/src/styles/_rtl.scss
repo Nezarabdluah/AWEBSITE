@@ -1,0 +1,160 @@
+// ============================================
+// RTL Support - دعم اللغة العربية
+// ============================================
+
+[dir='rtl'] {
+    // General text alignment
+    text-align: right;
+
+    // Flexbox direction
+    .flex-row {
+        flex-direction: row-reverse;
+    }
+
+    // Margins
+    .ml-auto {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    .mr-auto {
+        margin-right: 0;
+        margin-left: auto;
+    }
+
+    // Padding
+    .pl-0 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .pr-0 {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    // Border radius
+    .rounded-l-none {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: $radius-md;
+        border-bottom-right-radius: $radius-md;
+    }
+
+    .rounded-r-none {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: $radius-md;
+        border-bottom-left-radius: $radius-md;
+    }
+
+    // Icon positioning
+    .icon-left {
+        order: 2;
+        margin-left: $spacing-sm;
+        margin-right: 0;
+    }
+
+    .icon-right {
+        order: 0;
+        margin-right: $spacing-sm;
+        margin-left: 0;
+    }
+
+    // Lists
+    ul,
+    ol {
+        padding-right: $spacing-lg;
+        padding-left: 0;
+    }
+
+    // Checkboxes & Radios
+    .form-checkbox,
+    .form-radio {
+        input {
+            margin-left: $spacing-sm;
+            margin-right: 0;
+        }
+    }
+
+    // Input groups
+    .input-group {
+        .form-input:first-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: $radius-md;
+            border-bottom-right-radius: $radius-md;
+        }
+
+        .form-input:last-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-left-radius: $radius-md;
+            border-bottom-left-radius: $radius-md;
+        }
+
+        .input-group-text:first-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-top-right-radius: $radius-md;
+            border-bottom-right-radius: $radius-md;
+            border-right: 1px solid var(--border-color);
+            border-left: 0;
+        }
+
+        .input-group-text:last-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-left-radius: $radius-md;
+            border-bottom-left-radius: $radius-md;
+            border-left: 1px solid var(--border-color);
+            border-right: 0;
+        }
+    }
+
+    // Breadcrumbs
+    .breadcrumb-item+.breadcrumb-item::before {
+        content: '\\';
+        padding: 0 $spacing-sm;
+    }
+
+    // Dropdown
+    .dropdown-menu {
+        left: auto;
+        right: 0;
+    }
+
+    // Tooltips
+    .tooltip {
+        &.tooltip-right {
+            left: auto;
+            right: 100%;
+        }
+
+        &.tooltip-left {
+            right: auto;
+            left: 100%;
+        }
+    }
+
+    // Card image
+    .card-badge {
+        right: auto;
+        left: $spacing-md;
+    }
+
+    // Sidebar
+    .sidebar-submenu {
+        margin-left: 0;
+        margin-right: $spacing-xl;
+        padding-left: 0;
+        padding-right: $spacing-md;
+        border-left: none;
+        border-right: 2px solid var(--border-color);
+    }
+
+    .sidebar-badge {
+        margin-left: 0;
+        margin-right: auto;
+    }
+}

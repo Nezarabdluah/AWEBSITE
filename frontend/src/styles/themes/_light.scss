@@ -1,0 +1,40 @@
+// ============================================
+// Light Theme - السمة الفاتحة
+// ============================================
+
+:root,
+[data-theme='light'] {
+    // Background colors
+    --body-bg: #{$white};
+    --card-bg: #{$white};
+    --header-bg: rgba(255, 255, 255, 0.8);
+    --footer-bg: #{$gray-50};
+    --sidebar-bg: #{$white};
+    --hover-bg: #{$gray-100};
+    --input-bg: #{$white};
+    --input-group-bg: #{$gray-100};
+    --disabled-bg: #{$gray-100};
+
+    // Text colors
+    --text-color: #{$gray-900};
+    --heading-color: #{$gray-900};
+    --text-muted: #{$gray-600};
+
+    // Border colors
+    --border-color: #{$gray-200};
+
+    // Skeleton loading
+    --skeleton-base: #{$gray-200};
+    --skeleton-highlight: #{$gray-100};
+
+    // Direction
+    --direction: ltr;
+    --text-align: left;
+}
+
+// Arabic RTL
+:root[lang='ar'],
+[lang='ar'][data-theme='light'] {
+    --direction: rtl;
+    --text-align: right;
+}

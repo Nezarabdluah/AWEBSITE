@@ -1,0 +1,122 @@
+// ============================================
+// Cards - أنماط البطاقات
+// ============================================
+
+.card {
+    @include card;
+
+    &.card-hover {
+        cursor: pointer;
+    }
+
+    // Card without shadow
+    &.card-flat {
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+    }
+
+    // Card with border
+    &.card-bordered {
+        border: 1px solid var(--border-color);
+    }
+
+    // Compact card
+    &.card-compact {
+        padding: $spacing-md;
+    }
+
+    // Large card
+    &.card-lg {
+        padding: $spacing-2xl;
+    }
+}
+
+// Card header
+.card-header {
+    padding-bottom: $spacing-md;
+    margin-bottom: $spacing-md;
+    border-bottom: 1px solid var(--border-color);
+
+    .card-title {
+        margin: 0;
+        font-size: $font-size-xl;
+        font-weight: $font-weight-semibold;
+        color: var(--heading-color);
+    }
+
+    .card-subtitle {
+        margin: $spacing-xs 0 0;
+        font-size: $font-size-sm;
+        color: var(--text-muted);
+    }
+}
+
+// Card body
+.card-body {
+    color: var(--text-color);
+}
+
+// Card footer
+.card-footer {
+    padding-top: $spacing-md;
+    margin-top: $spacing-md;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-md;
+}
+
+// Card image
+.card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: $radius-lg $radius-lg 0 0;
+    margin: -#{$spacing-lg} -#{$spacing-lg} $spacing-lg;
+
+    .card-compact & {
+        margin: -#{$spacing-md} -#{$spacing-md} $spacing-md;
+    }
+}
+
+// Card badge
+.card-badge {
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    padding: $spacing-xs $spacing-sm;
+    background-color: $primary-color;
+    color: $white;
+    border-radius: $radius-md;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+
+    &.badge-success {
+        background-color: $success-color;
+    }
+
+    &.badge-warning {
+        background-color: $warning-color;
+    }
+
+    &.badge-error {
+        background-color: $error-color;
+    }
+}
+
+// Card grid
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $spacing-lg;
+
+    @include respond-to('md') {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: $spacing-md;
+    }
+
+    @include respond-to('xs') {
+        grid-template-columns: 1fr;
+    }
+}

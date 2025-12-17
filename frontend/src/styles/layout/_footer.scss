@@ -1,0 +1,98 @@
+// ============================================
+// Footer - أنماط الفوتر
+// ============================================
+
+.app-footer {
+    width: 100%;
+    background-color: var(--footer-bg);
+    border-top: 1px solid var(--border-color);
+    padding: $spacing-3xl 0 $spacing-lg;
+    margin-top: auto;
+}
+
+.footer-container {
+    @extend .container;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-2xl;
+    margin-bottom: $spacing-2xl;
+
+    @include respond-to('lg') {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+        gap: $spacing-xl;
+    }
+}
+
+.footer-column {
+    .footer-title {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        margin-bottom: $spacing-md;
+        color: var(--heading-color);
+    }
+
+    .footer-list {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-sm;
+
+        a {
+            color: var(--text-muted);
+            font-size: $font-size-sm;
+            transition: color $transition-base;
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+}
+
+.footer-bottom {
+    padding-top: $spacing-lg;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-lg;
+
+    @include respond-to('sm') {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .copyright {
+        font-size: $font-size-sm;
+        color: var(--text-muted);
+    }
+
+    .social-links {
+        display: flex;
+        gap: $spacing-md;
+
+        a {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: $radius-full;
+            background-color: var(--hover-bg);
+            color: var(--text-color);
+            transition: all $transition-base;
+
+            &:hover {
+                background-color: $primary-color;
+                color: $white;
+                transform: translateY(-2px);
+            }
+        }
+    }
+}
