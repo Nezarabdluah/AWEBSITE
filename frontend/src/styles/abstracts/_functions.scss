@@ -1,0 +1,38 @@
+// ============================================
+// SCSS Functions - الدوال المساعدة
+// ============================================
+
+// ===== Convert px to rem =====
+@function rem($pixels, $base: 16) {
+  @return ($pixels / $base) * 1rem;
+}
+
+// ===== Get spacing value =====
+@function spacing($multiplier) {
+  @return $spacing-md * $multiplier;
+}
+
+// ===== Lighten color function =====
+@function lighten-color($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+// ===== Darken color function =====
+@function darken-color($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+// ===== Get z-index =====
+@function z($layer) {
+  $z-indexes: (
+    'dropdown': $z-index-dropdown,
+    'sticky': $z-index-sticky,
+    'fixed': $z-index-fixed,
+    'modal-backdrop': $z-index-modal-backdrop,
+    'modal': $z-index-modal,
+    'popover': $z-index-popover,
+    'tooltip': $z-index-tooltip
+  );
+  
+  @return map-get($z-indexes, $layer);
+}
