@@ -8,7 +8,7 @@ import { AuthService } from '../../../core/services/auth.service';
     standalone: true,
     imports: [CommonModule, RouterModule],
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss']
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
     // State
