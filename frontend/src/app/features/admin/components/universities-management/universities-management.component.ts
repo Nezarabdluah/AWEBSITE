@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UniversityService } from '../../../universities/services/university.service';
 import { University } from '../../../../core/models';
@@ -11,7 +12,7 @@ import { University } from '../../../../core/models';
 @Component({
     selector: 'app-universities-management',
     standalone: true,
-    imports: [CommonModule, RouterModule],
+    imports: [CommonModule, RouterModule, FormsModule],
     templateUrl: './universities-management.component.html',
     styleUrl: './universities-management.component.scss'
 })
@@ -28,9 +29,10 @@ export class UniversitiesManagementComponent implements OnInit {
 
     loadUniversities(): void {
         this.isLoading.set(true);
-        this.universityService.getAll().subscribe({
-            next: (data) => {
-                this.universities.set(data);
+        // Using universities$ observable from service
+        this.universityService.universities$.subscribe({
+            next: (universities: University[]) => {
+                this.universities.set(universities);
                 this.isLoading.set(false);
             },
             error: () => {
@@ -41,11 +43,8 @@ export class UniversitiesManagementComponent implements OnInit {
 
     deleteUniversity(id: number): void {
         if (confirm('هل أنت متأكد من حذف هذه الجامعة؟')) {
-            this.universityService.delete(id).subscribe({
-                next: () => {
-                    this.universities.update(list => list.filter(u => u.id !== id));
-                }
-            });
+            // TODO: Add delete API call when backend is ready
+            this.universities.update(list => list.filter(u => u.id !== id));
         }
     }
 

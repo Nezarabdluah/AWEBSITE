@@ -16,6 +16,10 @@ export interface University {
   founded_year?: number;
   image?: string;
   logo?: string;
+  ranking?: number;
+  world_ranking?: number;
+  total_students?: number;
+  established_year?: number;
   ranking_world?: number;
   ranking_local?: number;
   rating?: number;
@@ -28,18 +32,14 @@ export interface University {
   acceptance_rate?: number;
   programs_count?: number;
   accreditation?: string;
-  facilities?: string[];
-  requirements?: string[];
-  is_active: boolean;
+  scholarships_available?: boolean;
+  campus_facilities?: string[];
+  admission_requirements?: string[];
+  language_requirements?: string[];
   is_featured?: boolean;
+  is_active: boolean;
+  views_count?: number;
+  applications_count?: number;
   created_at?: string;
   updated_at?: string;
-}
-
-// صورة المعرض
-export interface GalleryImage {
-  id: number;
-  url: string;
-  title?: string;
-  order: number;
 }
