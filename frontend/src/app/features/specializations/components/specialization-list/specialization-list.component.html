@@ -1,0 +1,86 @@
+<div class="specialization-list-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">التخصصات الدراسية</h1>
+            <p class="page-subtitle">استكشف جميع التخصصات الدراسية المتاحة</p>
+        </div>
+
+        <!-- Search & Filters -->
+        <div class="filters-section">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="ابحث عن تخصص..." [value]="searchQuery()"
+                    (input)="onSearch($any($event.target).value)">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="category-filters">
+                <button class="category-btn" [class.active]="!selectedCategory()" (click)="onCategoryChange('')">
+                    <span class="category-icon">📖</span>
+                    <span>الكل</span>
+                </button>
+
+                @for (cat of categories; track cat.value) {
+                <button class="category-btn" [class.active]="selectedCategory() === cat.value"
+                    (click)="onCategoryChange(cat.value)">
+                    <span class="category-icon">{{ cat.icon }}</span>
+                    <span>{{ cat.label }}</span>
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="results-info">
+            <p>عرض {{ specializations().length }} من أصل {{ total() }} تخصص</p>
+        </div>
+
+        <!-- Loading State -->
+        @if (loading()) {
+        <div class="loading-state">
+            <app-loading-spinner [size]="'large'"></app-loading-spinner>
+            <p>جاري تحميل التخصصات...</p>
+        </div>
+        }
+
+        <!-- Error State -->
+        @else if (error()) {
+        <div class="error-state">
+            <p class="error-message">{{ error() }}</p>
+            <button class="btn btn-primary" (click)="loadSpecializations()">
+                إعادة المحاولة
+            </button>
+        </div>
+        }
+
+        <!-- Specializations Grid -->
+        @else if (specializations().length > 0) {
+        <div class="specializations-grid">
+            @for (spec of specializations(); track spec.id) {
+            <app-specialization-card [specialization]="spec"></app-specialization-card>
+            }
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages() > 1) {
+        <div class="pagination-wrapper">
+            <app-pagination [currentPage]="currentPage()" [totalPages]="totalPages()"
+                (pageChange)="onPageChange($event)">
+            </app-pagination>
+        </div>
+        }
+        }
+
+        <!-- Empty State -->
+        @else {
+        <div class="empty-state">
+            <div class="empty-icon">📚</div>
+            <h3>لا توجد نتائج</h3>
+            <p>لم نجد أي تخصصات تطابق البحث.</p>
+            <button class="btn btn-primary" (click)="clearFilters()">
+                مسح الفلاتر
+            </button>
+        </div>
+        }
+    </div>
+</div>

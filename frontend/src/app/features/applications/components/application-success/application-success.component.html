@@ -1,0 +1,69 @@
+<div class="success-page">
+    <div class="container">
+        <div class="success-card">
+            <!-- Success Icon -->
+            <div class="success-icon">
+                <div class="check-circle">✓</div>
+            </div>
+
+            <!-- Success Message -->
+            <h1 class="success-title">تم تقديم طلبك بنجاح! 🎉</h1>
+            <p class="success-subtitle">شكراً لك على تقديم طلب الالتحاق</p>
+
+            <!-- Application ID -->
+            @if (applicationId()) {
+            <div class="application-id">
+                <span class="label">رقم الطلب:</span>
+                <span class="id-value">#{{ applicationId() }}</span>
+            </div>
+            }
+
+            <!-- Next Steps -->
+            <div class="next-steps">
+                <h2>الخطوات القادمة</h2>
+                <div class="steps-list">
+                    <div class="step-item">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h3>مراجعة الطلب</h3>
+                            <p>سنقوم بمراجعة طلبك خلال 3-5 أيام عمل</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h3>التواصل معك</h3>
+                            <p>سنرسل لك بريد إلكتروني بتحديثات حول حالة طلبك</p>
+                        </div>
+                    </div>
+
+                    <div class="step-item">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h3>المقابلة (إن لزم)</h3>
+                            <p>قد نطلب مقابلة شخصية أو عبر الإنترنت</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="success-actions">
+                <a routerLink="/" class="btn btn-primary">
+                    🏠 العودة للرئيسية
+                </a>
+                <button class="btn btn-outline" (click)="printReceipt()">
+                    🖨️ طباعة الإيصال
+                </button>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <p>إذا كان لديك أي استفسار، تواصل معنا:</p>
+                <p>📧 <a href="mailto:support@your-uni.com">support@your-uni.com</a></p>
+                <p>📞 <a href="tel:+966XXXXXXXXX">+966 XX XXX XXXX</a></p>
+            </div>
+        </div>
+    </div>
+</div>

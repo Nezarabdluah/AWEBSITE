@@ -2,10 +2,10 @@
 @import 'abstracts/mixins';
 
 // ==================================================
-// Institute Card - Enhanced Modern Design
+// Article Card - Enhanced Modern Design
 // ==================================================
 
-.institute-card {
+.article-card {
     background-color: var(--card-bg, $white);
     border-radius: $radius-2xl;
     overflow: hidden;
@@ -24,7 +24,7 @@
         inset: 0;
         border-radius: $radius-2xl;
         padding: 2px;
-        background: linear-gradient(135deg, $secondary-500, $primary-500);
+        background: linear-gradient(135deg, $info-color, $primary-500);
         -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
         mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -38,18 +38,18 @@
     &:hover {
         transform: translateY(-8px) scale(1.01);
         box-shadow: $shadow-2xl;
-        border-color: rgba($secondary-color, 0.3);
+        border-color: rgba($info-color, 0.3);
 
         &::before {
             opacity: 1;
         }
 
-        .institute-card__image img {
+        .article-card__image img {
             transform: scale(1.1);
         }
 
-        .institute-card__badge {
-            transform: scale(1.1) rotate(-2deg);
+        .article-card__category {
+            transform: scale(1.05);
         }
     }
 
@@ -86,25 +86,26 @@
             position: absolute;
             inset: 0;
             background: linear-gradient(to top,
-                    rgba(0, 0, 0, 0.5) 0%,
+                    rgba(0, 0, 0, 0.6) 0%,
                     transparent 50%);
-            opacity: 0.7;
+            opacity: 0.5;
         }
     }
 
-    // ===== BADGE =====
-    &__badge {
+    // ===== CATEGORY BADGE =====
+    &__category {
         position: absolute;
         top: $spacing-4;
         right: $spacing-4;
         padding: $spacing-2 $spacing-4;
-        background: linear-gradient(135deg, $secondary-600, $secondary-500);
+        background: linear-gradient(135deg, rgba($info-color, 0.95), rgba($primary-color, 0.95));
         color: $white;
         font-size: $font-size-xs;
         font-weight: $font-weight-bold;
         border-radius: $radius-full;
-        box-shadow: $shadow-lg, $shadow-secondary;
+        box-shadow: $shadow-lg;
         z-index: 10;
+        backdrop-filter: blur($blur-sm);
         transition: transform $transition-base;
 
         [dir="rtl"] & {
@@ -121,12 +122,12 @@
         flex-direction: column;
     }
 
-    // Institute Name
-    &__name {
+    // Article Title
+    &__title {
         font-size: $font-size-xl;
         font-weight: $font-weight-bold;
         color: var(--heading-color, $gray-900);
-        margin: 0 0 $spacing-2 0;
+        margin: 0 0 $spacing-3 0;
         line-height: $line-height-tight;
 
         // Truncate to 2 lines
@@ -139,26 +140,12 @@
         transition: color $transition-fast;
     }
 
-    &:hover &__name {
-        color: $secondary-600;
+    &:hover &__title {
+        color: $info-color;
     }
 
-    // Location
-    &__location {
-        display: flex;
-        align-items: center;
-        gap: $spacing-2;
-        font-size: $font-size-sm;
-        color: var(--text-muted, $gray-500);
-        margin-bottom: $spacing-4;
-
-        &-icon {
-            font-size: $font-size-base;
-        }
-    }
-
-    // Description
-    &__description {
+    // Excerpt/Description
+    &__excerpt {
         font-size: $font-size-sm;
         color: var(--text-color, $gray-600);
         line-height: $line-height-relaxed;
@@ -173,68 +160,66 @@
         overflow: hidden;
     }
 
-    // ===== STATS ROW =====
-    &__stats {
+    // ===== META INFO =====
+    &__meta {
         display: flex;
-        gap: $spacing-5;
-        padding: $spacing-4 0;
+        align-items: center;
+        justify-content: space-between;
+        gap: $spacing-4;
+        padding-top: $spacing-4;
         border-top: 1px solid var(--border-color, $gray-200);
         margin-top: auto;
+    }
+
+    &__author {
+        display: flex;
+        align-items: center;
+        gap: $spacing-3;
+
+        &-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: $radius-full;
+            object-fit: cover;
+            border: 2px solid rgba($primary-color, 0.1);
+        }
+
+        &-info {
+            display: flex;
+            flex-direction: column;
+            gap: $spacing-0\.5;
+        }
+
+        &-name {
+            font-size: $font-size-sm;
+            font-weight: $font-weight-semibold;
+            color: var(--heading-color, $gray-900);
+        }
+
+        &-date {
+            font-size: $font-size-xs;
+            color: var(--text-muted, $gray-500);
+        }
+    }
+
+    &__stats {
+        display: flex;
+        gap: $spacing-4;
     }
 
     &__stat {
         display: flex;
         align-items: center;
-        gap: $spacing-2;
+        gap: $spacing-1;
         font-size: $font-size-sm;
-        color: var(--text-color, $gray-600);
-        transition: color $transition-fast;
+        color: var(--text-muted, $gray-500);
 
         &-icon {
-            font-size: $font-size-lg;
-            color: $secondary-500;
-        }
-
-        &-value {
-            font-weight: $font-weight-semibold;
-            color: var(--heading-color, $gray-900);
+            font-size: $font-size-base;
         }
 
         &:hover {
-            color: $secondary-600;
-        }
-    }
-
-    // ===== FOOTER ACTIONS =====
-    &__footer {
-        padding: $spacing-4 $spacing-6;
-        background-color: rgba($gray-50, 0.5);
-        border-top: 1px solid var(--border-color, $gray-200);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: $spacing-3;
-    }
-
-    &__action {
-        @include button-reset;
-        padding: $spacing-2 $spacing-4;
-        background-color: transparent;
-        color: $secondary-600;
-        font-size: $font-size-sm;
-        font-weight: $font-weight-semibold;
-        border-radius: $radius-lg;
-        transition: all $transition-fast;
-        cursor: pointer;
-
-        &:hover {
-            background-color: rgba($secondary-color, 0.1);
-            color: $secondary-700;
-            transform: translateX(-2px);
-        }
-
-        [dir="rtl"] &:hover {
-            transform: translateX(2px);
+            color: $info-color;
         }
     }
 
@@ -244,15 +229,9 @@
             padding: $spacing-5;
         }
 
-        &__footer {
-            padding: $spacing-3 $spacing-5;
+        &__meta {
             flex-direction: column;
-            align-items: stretch;
-        }
-
-        &__action {
-            width: 100%;
-            text-align: center;
+            align-items: flex-start;
         }
     }
 }

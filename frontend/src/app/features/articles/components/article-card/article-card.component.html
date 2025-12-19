@@ -1,0 +1,40 @@
+<div class="article-card" [class.article-card--featured]="featured">
+    <a [routerLink]="['/articles', article.slug || article.id]" class="article-card__link">
+        <!-- Image -->
+        <div class="article-card__image">
+            <img [src]="article.featured_image" [alt]="article.title">
+            @if (article.is_featured) {
+            <span class="featured-badge">مميز</span>
+            }
+            @if (article.category) {
+            <span class="category-badge">{{ article.category }}</span>
+            }
+        </div>
+
+        <!-- Content -->
+        <div class="article-card__content">
+            <h3 class="article-card__title">{{ article.title }}</h3>
+
+            @if (article.excerpt) {
+            <p class="article-card__excerpt">{{ article.excerpt }}</p>
+            }
+
+            <!-- Meta -->
+            <div class="article-card__meta">
+                @if (article.published_at) {
+                <span class="meta-item">
+                    <span class="meta-icon">📅</span>
+                    <span>{{ article.published_at | timeAgo }}</span>
+                </span>
+                }
+
+                @if (article.views_count) {
+                <span class="meta-item">
+                    <span class="meta-icon">👁️</span>
+                    <span>{{ formatViews(article.views_count) }} مشاهدة</span>
+                </span>
+                }
+            </div>
+        </div>
+    </a>
+</div>

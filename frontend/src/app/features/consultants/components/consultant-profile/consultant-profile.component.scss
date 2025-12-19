@@ -1,0 +1,266 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.consultant-profile-page {
+    min-height: 100vh;
+    background-color: var(--bg-color);
+}
+
+.consultant-hero {
+    background: linear-gradient(135deg, var(--primary-color), rgba(var(--primary-color-rgb), 0.7));
+    color: white;
+    padding: $spacing-2xl 0;
+    margin-bottom: $spacing-2xl;
+
+    .hero-content {
+        display: flex;
+        gap: $spacing-2xl;
+        align-items: center;
+
+        @include respond-to('md') {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    .consultant-image {
+        position: relative;
+        flex-shrink: 0;
+
+        img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: $shadow-xl;
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: $spacing-xs $spacing-md;
+            border-radius: $radius-full;
+            font-size: $font-size-xs;
+            font-weight: $font-weight-bold;
+
+            &.available {
+                background-color: $success-color;
+                color: white;
+            }
+
+            &.unavailable {
+                background-color: $error-color;
+                color: white;
+            }
+        }
+    }
+
+    .consultant-info {
+        flex: 1;
+    }
+
+    .consultant-name {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: $font-weight-bold;
+        margin: 0 0 $spacing-xs 0;
+    }
+
+    .consultant-specialty {
+        font-size: $font-size-xl;
+        opacity: 0.9;
+        margin: 0 0 $spacing-lg 0;
+    }
+
+    .consultant-meta {
+        display: flex;
+        gap: $spacing-lg;
+        margin-bottom: $spacing-xl;
+        flex-wrap: wrap;
+
+        @include respond-to('md') {
+            justify-content: center;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: $spacing-xs;
+            font-size: $font-size-sm;
+
+            .meta-icon {
+                font-size: 1.2rem;
+            }
+
+            .meta-label {
+                opacity: 0.9;
+            }
+
+            .meta-value {
+                font-weight: $font-weight-bold;
+            }
+        }
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: $spacing-md;
+
+        @include respond-to('md') {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: $spacing-2xl;
+
+    @include respond-to('md') {
+        grid-template-columns: 1fr;
+    }
+}
+
+.main-column {
+    .content-section {
+        background-color: var(--card-bg);
+        border-radius: $radius-xl;
+        padding: $spacing-xl;
+        margin-bottom: $spacing-xl;
+        border: 1px solid var(--border-color);
+
+        h2 {
+            font-size: $font-size-2xl;
+            font-weight: $font-weight-bold;
+            color: var(--heading-color);
+            margin: 0 0 $spacing-lg 0;
+            padding-bottom: $spacing-md;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .bio {
+            font-size: $font-size-base;
+            line-height: 1.8;
+            color: var(--text-color);
+            margin: 0;
+        }
+    }
+
+    .languages-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-sm;
+
+        .language-badge {
+            display: inline-block;
+            background-color: rgba(var(--primary-color-rgb), 0.1);
+            color: var(--primary-color);
+            padding: $spacing-xs $spacing-md;
+            border-radius: $radius-full;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-medium;
+        }
+    }
+}
+
+.sidebar {
+
+    .info-card,
+    .stats-card {
+        background-color: var(--card-bg);
+        border-radius: $radius-xl;
+        padding: $spacing-xl;
+        margin-bottom: $spacing-xl;
+        border: 1px solid var(--border-color);
+
+        h3 {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            color: var(--heading-color);
+            margin: 0 0 $spacing-md 0;
+        }
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+
+        .contact-item {
+            display: flex;
+            gap: $spacing-sm;
+
+            .contact-icon {
+                font-size: 1.5rem;
+                flex-shrink: 0;
+            }
+
+            strong {
+                display: block;
+                margin-bottom: $spacing-xs;
+                color: var(--heading-color);
+                font-size: $font-size-sm;
+            }
+
+            a {
+                color: var(--primary-color);
+                text-decoration: none;
+                font-size: $font-size-sm;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .stats-list {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: $spacing-sm;
+            border-bottom: 1px solid var(--border-color);
+
+            &:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .stat-label {
+                font-size: $font-size-sm;
+                color: var(--text-muted);
+            }
+
+            .stat-value {
+                font-size: $font-size-sm;
+                font-weight: $font-weight-bold;
+                color: var(--heading-color);
+            }
+        }
+    }
+}
+
+.loading-state,
+.error-state {
+    text-align: center;
+    padding: $spacing-4xl 0;
+
+    p {
+        margin-top: $spacing-lg;
+        font-size: $font-size-base;
+    }
+
+    .error-message {
+        color: $error-color;
+        font-size: $font-size-lg;
+        margin-bottom: $spacing-lg;
+    }
+}

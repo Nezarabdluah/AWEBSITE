@@ -1,0 +1,84 @@
+<div class="management-page">
+    <div class="page-header">
+        <div>
+            <h1>إدارة الطلبات</h1>
+            <p>عرض وإدارة طلبات التقديم على الجامعات</p>
+        </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar">
+        <label>الحالة:</label>
+        <div class="filter-buttons">
+            @for (option of statusOptions; track option.value) {
+            <button class="filter-btn" [class.active]="filterStatus() === option.value"
+                (click)="filterStatus.set(option.value)">
+                {{ option.label }}
+            </button>
+            }
+        </div>
+    </div>
+
+    <!-- Loading -->
+    @if (isLoading()) {
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>جاري التحميل...</p>
+    </div>
+    }
+
+    <!-- Applications Table -->
+    @if (!isLoading() && filteredApplications.length > 0) {
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>رقم الطلب</th>
+                    <th>الاسم</th>
+                    <th>البريد الإلكتروني</th>
+                    <th>الجامعة</th>
+                    <th>التخصص</th>
+                    <th>الحالة</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (app of filteredApplications; track app.id) {
+                <tr>
+                    <td>#{{ app.id }}</td>
+                    <td>{{ app.full_name }}</td>
+                    <td>{{ app.email }}</td>
+                    <td>{{ app.university_id }}</td>
+                    <td>{{ app.specialization_id }}</td>
+                    <td>
+                        <span [class]="'status-badge ' + getStatusBadgeClass(app.status)">
+                            {{ getStatusLabel(app.status) }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <select (change)="updateStatus(app.id, $any($event.target).value)" [value]="app.status">
+                                <option value="pending">قيد المراجعة</option>
+                                <option value="approved">مقبول</option>
+                                <option value="rejected">مرفوض</option>
+                            </select>
+                            <button class="btn-icon btn-delete" (click)="deleteApplication(app.id)"
+                                title="حذف">🗑️</button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+
+    <!-- Empty State -->
+    @if (!isLoading() && filteredApplications.length === 0) {
+    <div class="empty-state">
+        <div class="empty-icon">📝</div>
+        <h3>لا توجد طلبات</h3>
+        <p>لم يتم العثور على طلبات {{ filterStatus() !== 'all' ? 'بهذه الحالة' : '' }}</p>
+    </div>
+    }
+</div>

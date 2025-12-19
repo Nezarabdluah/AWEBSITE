@@ -1,0 +1,61 @@
+<div class="dashboard-overview">
+  <div class="dashboard-header">
+    <h1>لوحة التحكم</h1>
+    <p>مرحباً بك في لوحة إدارة الموقع</p>
+  </div>
+
+  <!-- Statistics Cards -->
+  <div class="stats-grid">
+    @for (stat of stats(); track stat.title) {
+      <div class="stat-card" [class]="'stat-card--' + stat.color">
+        <div class="stat-icon">{{ stat.icon }}</div>
+        <div class="stat-content">
+          <h3 class="stat-title">{{ stat.title }}</h3>
+          <p class="stat-value">{{ stat.value }}</p>
+          @if (stat.change) {
+            <span class="stat-change">{{ stat.change }}</span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <h2>إجراءات سريعة</h2>
+    <div class="actions-grid">
+      <a routerLink="/admin/universities" class="action-btn">
+        <span class="action-icon">🎓</span>
+        <span>إدارة الجامعات</span>
+      </a>
+      <a routerLink="/admin/applications" class="action-btn">
+        <span class="action-icon">📝</span>
+        <span>الطلبات</span>
+      </a>
+      <a routerLink="/admin/articles" class="action-btn">
+        <span class="action-icon">📰</span>
+        <span>المقالات</span>
+      </a>
+      <a routerLink="/admin/settings" class="action-btn">
+        <span class="action-icon">⚙️</span>
+        <span>الإعدادات</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Recent Activities -->
+  <div class="recent-activities">
+    <h2>النشاطات الأخيرة</h2>
+    <div class="activities-list">
+      @for (activity of recentActivities(); track activity.time) {
+        <div class="activity-item">
+          <div [class]="'activity-badge activity-badge--' + activity.type"></div>
+          <div class="activity-content">
+            <p class="activity-message">{{ activity.message }}</p>
+            <span class="activity-time">{{ activity.time }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

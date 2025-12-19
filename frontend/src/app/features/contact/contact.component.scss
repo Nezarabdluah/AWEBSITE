@@ -1,0 +1,284 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.contact-page {
+    min-height: 100vh;
+    padding: $spacing-10 0;
+    background-color: var(--bg-color, $gray-50);
+}
+
+// ===== PAGE HEADER =====
+.page-header {
+    text-align: center;
+    margin-bottom: $spacing-12;
+
+    .page-title {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        font-weight: $font-weight-bold;
+        color: var(--heading-color, $gray-900);
+        margin: 0 0 $spacing-4 0;
+    }
+
+    .page-subtitle {
+        font-size: $font-size-xl;
+        color: var(--text-muted, $gray-600);
+    }
+}
+
+// ===== CONTACT CONTENT =====
+.contact-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: $spacing-8;
+
+    @include respond-to('lg') {
+        grid-template-columns: 1fr;
+    }
+}
+
+// ===== FORM SECTION =====
+.form-card {
+    background-color: var(--card-bg, $white);
+    border-radius: $radius-2xl;
+    padding: $spacing-10;
+    box-shadow: $shadow-lg;
+
+    @include respond-to('md') {
+        padding: $spacing-6;
+    }
+
+    .form-title {
+        font-size: $font-size-3xl;
+        font-weight: $font-weight-bold;
+        color: var(--heading-color, $gray-900);
+        margin: 0 0 $spacing-8 0;
+    }
+}
+
+.success-message {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-4 $spacing-5;
+    background-color: rgba($success-color, 0.1);
+    border: 2px solid $success-color;
+    border-radius: $radius-xl;
+    margin-bottom: $spacing-6;
+
+    .success-icon {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: $radius-full;
+        background-color: $success-color;
+        color: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+    }
+
+    p {
+        margin: 0;
+        color: $success-dark;
+        font-weight: $font-weight-medium;
+    }
+}
+
+.contact-form {
+    .form-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-6;
+
+        @include respond-to('sm') {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .form-group {
+        margin-bottom: $spacing-6;
+
+        label {
+            display: block;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-semibold;
+            color: var(--heading-color, $gray-900);
+            margin-bottom: $spacing-2;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: $spacing-4;
+            border: 2px solid var(--border-color, $gray-300);
+            border-radius: $radius-lg;
+            font-size: $font-size-base;
+            font-family: $font-family-arabic;
+            transition: all $transition-fast;
+
+            &:focus {
+                outline: none;
+                border-color: $primary-600;
+                box-shadow: 0 0 0 4px rgba($primary-color, 0.1);
+            }
+
+            &.error {
+                border-color: $error-color;
+            }
+
+            &::placeholder {
+                color: $gray-400;
+            }
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .error-message {
+            display: block;
+            font-size: $font-size-xs;
+            color: $error-color;
+            margin-top: $spacing-2;
+        }
+    }
+
+    .btn {
+        width: 100%;
+        margin-top: $spacing-4;
+    }
+}
+
+// ===== INFO SECTION =====
+.contact-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-6;
+}
+
+.info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-4;
+}
+
+.info-card {
+    display: flex;
+    gap: $spacing-4;
+    padding: $spacing-5;
+    background-color: var(--card-bg, $white);
+    border-radius: $radius-xl;
+    box-shadow: $shadow-md;
+    transition: all $transition-base;
+
+    &:hover {
+        transform: translateX(-4px);
+        box-shadow: $shadow-lg;
+    }
+
+    .info-icon {
+        flex-shrink: 0;
+        width: 56px;
+        height: 56px;
+        border-radius: $radius-xl;
+        background: linear-gradient(135deg, rgba($primary-color, 0.1), rgba($secondary-color, 0.1));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+    }
+
+    .info-content {
+        flex: 1;
+
+        .info-title {
+            font-size: $font-size-sm;
+            font-weight: $font-weight-semibold;
+            color: var(--text-muted, $gray-600);
+            margin: 0 0 $spacing-1 0;
+        }
+
+        .info-value {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-semibold;
+            color: var(--heading-color, $gray-900);
+            margin: 0;
+
+            a {
+                color: $primary-600;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+// ===== SOCIAL SECTION =====
+.social-section {
+    padding: $spacing-6;
+    background-color: var(--card-bg, $white);
+    border-radius: $radius-xl;
+    box-shadow: $shadow-md;
+
+    .social-title {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        color: var(--heading-color, $gray-900);
+        margin: 0 0 $spacing-5 0;
+        text-align: center;
+    }
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-3;
+}
+
+.social-link {
+    width: 56px;
+    height: 56px;
+    border-radius: $radius-full;
+    background-color: rgba($primary-color, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all $transition-base;
+
+    &:hover {
+        background: linear-gradient(135deg, $primary-600, $primary-500);
+        transform: translateY(-4px) scale(1.1);
+        box-shadow: $shadow-primary;
+    }
+}
+
+// ===== MAP PLACEHOLDER =====
+.map-placeholder {
+    height: 300px;
+    background: linear-gradient(135deg, $gray-100, $gray-200);
+    border-radius: $radius-xl;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-3;
+
+    .map-icon {
+        font-size: 4rem;
+        opacity: 0.5;
+    }
+
+    p {
+        font-size: $font-size-lg;
+        color: var(--text-muted, $gray-600);
+        margin: 0;
+    }
+}

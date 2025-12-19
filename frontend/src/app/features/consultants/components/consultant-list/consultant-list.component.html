@@ -1,0 +1,150 @@
+<div class="consultant-list-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">المستشارون التعليميون</h1>
+            <p class="page-subtitle">تواصل مع خبراء القبول الجامعي والدراسة بالخارج</p>
+        </div>
+
+        <!-- Search & Filters -->
+        <div class="filters-section">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="ابحث عن مستشار..." [value]="searchQuery()"
+                    (input)="onSearch($any($event.target).value)">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="specialty-filters">
+                <select class="filter-select" [value]="selectedSpecialty() || ''"
+                    (change)="onSpecialtyChange($any($event.target).value)">
+                    <option value="">جميع التخصصات</option>
+                    @for (spec of specialties; track spec) {
+                    <option [value]="spec">{{ spec }}</option>
+                    }
+                </select>
+
+                @if (searchQuery() || selectedSpecialty()) {
+                <button class="btn btn-sm btn-outline" (click)="clearFilters()">
+                    مسح الفلاتر
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="results-info">
+            <p>عرض {{ consultants().length }} من أصل {{ total() }} مستشار</p>
+        </div>
+
+        <!-- Loading State -->
+        @if (loading()) {
+        <div class="loading-state">
+            <app-loading-spinner [size]="'large'"></app-loading-spinner>
+            <p>جاري تحميل المستشارين...</p>
+        </div>
+        }
+
+        <!-- Error State -->
+        @else if (error()) {
+        <div class="error-state">
+            <p class="error-message">{{ error() }}</p>
+            <button class="btn btn-primary" (click)="loadConsultants()">
+                إعادة المحاولة
+            </button>
+        </div>
+        }
+
+        <!-- Consultants Grid -->
+        @else if (consultants().length > 0) {
+        <div class="consultants-grid">
+            @for (consultant of consultants(); track consultant.id) {
+            <div class="consultant-card">
+                <a [routerLink]="['/consultants', consultant.id]" class="consultant-card__link">
+                    <!-- Image -->
+                    <div class="consultant-card__image">
+                        <img [src]="consultant.image" [alt]="consultant.name">
+                        @if (!consultant.is_available) {
+                        <span class="status-badge unavailable">غير متاح</span>
+                        } @else {
+                        <span class="status-badge available">متاح</span>
+                        }
+                    </div>
+
+                    <!-- Content -->
+                    <div class="consultant-card__content">
+                        <h3 class="consultant-name">{{ consultant.name }}</h3>
+
+                        <p class="consultant-specialty">{{ consultant.specialty }}</p>
+
+                        @if (consultant.bio) {
+                        <p class="consultant-bio">{{ consultant.bio }}</p>
+                        }
+
+                        <!-- Stats -->
+                        <div class="consultant-stats">
+                            @if (consultant.rating) {
+                            <div class="stat">
+                                <span class="stat-icon">⭐</span>
+                                <span class="stat-value">{{ consultant.rating }}</span>
+                            </div>
+                            }
+
+                            @if (consultant.experience_years) {
+                            <div class="stat">
+                                <span class="stat-icon">💼</span>
+                                <span class="stat-value">{{ consultant.experience_years }} سنوات</span>
+                            </div>
+                            }
+
+                            @if (consultant.consultations_count) {
+                            <div class="stat">
+                                <span class="stat-icon">📊</span>
+                                <span class="stat-value">{{ formatNumber(consultant.consultations_count) }}
+                                    استشارة</span>
+                            </div>
+                            }
+                        </div>
+
+                        <!-- Languages -->
+                        @if (consultant.languages && consultant.languages.length > 0) {
+                        <div class="consultant-languages">
+                            <span class="languages-label">اللغات:</span>
+                            <span class="languages-list">{{ consultant.languages.join(', ') }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <!-- Action -->
+                    <div class="consultant-card__actions">
+                        <button class="btn btn-sm btn-primary btn-block">
+                            عرض الملف الشخصي
+                        </button>
+                    </div>
+                </a>
+            </div>
+            }
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages() > 1) {
+        <div class="pagination-wrapper">
+            <app-pagination [currentPage]="currentPage()" [totalPages]="totalPages()"
+                (pageChange)="onPageChange($event)">
+            </app-pagination>
+        </div>
+        }
+        }
+
+        <!-- Empty State -->
+        @else {
+        <div class="empty-state">
+            <div class="empty-icon">👨‍🏫</div>
+            <h3>لا توجد نتائج</h3>
+            <p>لم نجد أي مستشارين يطابقون البحث.</p>
+            <button class="btn btn-primary" (click)="clearFilters()">
+                مسح الفلاتر
+            </button>
+        </div>
+        }
+    </div>
+</div>

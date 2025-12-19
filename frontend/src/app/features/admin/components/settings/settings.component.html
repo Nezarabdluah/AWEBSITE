@@ -1,0 +1,58 @@
+<div class="settings-page">
+    <div class="page-header">
+        <h1>⚙️ الإعدادات</h1>
+        <p>إدارة إعدادات الموقع العامة</p>
+    </div>
+
+    @if (saveSuccess()) {
+    <div class="success-alert">
+        ✓ تم حفظ الإعدادات بنجاح!
+    </div>
+    }
+
+    <div class="settings-card">
+        <form (ngSubmit)="saveSettings()">
+            @for (setting of settings(); track setting.key) {
+            <div class="form-group">
+                <label [for]="setting.key">{{ setting.label }}</label>
+
+                @if (setting.type === 'textarea') {
+                <textarea [id]="setting.key" [value]="setting.value"
+                    (input)="updateSetting(setting.key, $any($event.target).value)" rows="4">
+            </textarea>
+                } @else {
+                <input [type]="setting.type" [id]="setting.key" [value]="setting.value"
+                    (input)="updateSetting(setting.key, $any($event.target).value)">
+                }
+            </div>
+            }
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" [disabled]="isSaving()">
+                    {{ isSaving() ? '💾 جاري الحفظ...' : '💾 حفظ الإعدادات' }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Additional Settings Sections -->
+    <div class="settings-sections">
+        <div class="section-card">
+            <h3>🎨 الواجهة</h3>
+            <p>تخصيص ألوان وتصميم الموقع</p>
+            <button class="btn btn-outline">تخصيص</button>
+        </div>
+
+        <div class="section-card">
+            <h3>📧 البريد الإلكتروني</h3>
+            <p>إعدادات إرسال البريد</p>
+            <button class="btn btn-outline">تكوين</button>
+        </div>
+
+        <div class="section-card">
+            <h3>🔒 الأمان</h3>
+            <p>إعدادات الحماية والخصوصية</p>
+            <button class="btn btn-outline">إدارة</button>
+        </div>
+    </div>
+</div>

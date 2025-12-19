@@ -1,0 +1,246 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// ==================================================
+// Consultant Card - Enhanced Modern Design
+// ==================================================
+
+.consultant-card {
+    background-color: var(--card-bg, $white);
+    border-radius: $radius-2xl;
+    overflow: hidden;
+    border: 1px solid var(--border-color, $gray-200);
+    transition: all $transition-base;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: $shadow-md;
+
+    // Gradient border on hover
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: $radius-2xl;
+        padding: 2px;
+        background: linear-gradient(135deg, $primary-400, $accent-400);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity $transition-base;
+        pointer-events: none;
+    }
+
+    // Modern hover effect
+    &:hover {
+        transform: translateY(-8px) scale(1.01);
+        box-shadow: $shadow-2xl;
+        border-color: rgba($primary-color, 0.3);
+
+        &::before {
+            opacity: 1;
+        }
+
+        .consultant-card__avatar {
+            transform: scale(1.1);
+        }
+    }
+
+    &:active {
+        transform: translateY(-4px) scale(0.99);
+    }
+
+    // Card link wrapper
+    &__link {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: $spacing-8 $spacing-6 $spacing-6;
+        text-align: center;
+        align-items: center;
+    }
+
+    // ===== AVATAR SECTION =====
+    &__avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: $radius-full;
+        object-fit: cover;
+        border: 4px solid rgba($primary-color, 0.1);
+        margin-bottom: $spacing-5;
+        transition: transform $transition-base;
+        box-shadow: $shadow-lg;
+    }
+
+    // ===== STATUS BADGE =====
+    &__status {
+        position: absolute;
+        top: $spacing-4;
+        right: $spacing-4;
+        padding: $spacing-1\.5 $spacing-3;
+        background: linear-gradient(135deg, $success-color, $success-light);
+        color: $white;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-bold;
+        border-radius: $radius-full;
+        box-shadow: $shadow-md;
+
+        &.offline {
+            background: linear-gradient(135deg, $gray-400, $gray-300);
+        }
+
+        [dir="rtl"] & {
+            right: auto;
+            left: $spacing-4;
+        }
+    }
+
+    // ===== CONTENT SECTION =====
+    &__name {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: var(--heading-color, $gray-900);
+        margin: 0 0 $spacing-2 0;
+        line-height: $line-height-tight;
+
+        transition: color $transition-fast;
+    }
+
+    &:hover &__name {
+        color: $primary-600;
+    }
+
+    &__title {
+        font-size: $font-size-base;
+        color: $primary-600;
+        font-weight: $font-weight-semibold;
+        margin-bottom: $spacing-4;
+    }
+
+    // Specialties
+    &__specialties {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing-2;
+        justify-content: center;
+        margin-bottom: $spacing-5;
+    }
+
+    &__specialty {
+        padding: $spacing-1 $spacing-3;
+        background-color: rgba($accent-color, 0.1);
+        border-radius: $radius-full;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-medium;
+        color: $accent-700;
+    }
+
+    // Bio
+    &__bio {
+        font-size: $font-size-sm;
+        color: var(--text-color, $gray-600);
+        line-height: $line-height-relaxed;
+        margin-bottom: $spacing-6;
+        text-align: center;
+
+        // Truncate to 3 lines
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    // ===== STATS =====
+    &__stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: $spacing-4;
+        width: 100%;
+        padding: $spacing-5 0;
+        border-top: 1px solid var(--border-color, $gray-200);
+        border-bottom: 1px solid var(--border-color, $gray-200);
+        margin-top: auto;
+    }
+
+    &__stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $spacing-1;
+
+        &-value {
+            font-size: $font-size-xl;
+            font-weight: $font-weight-bold;
+            color: $primary-600;
+        }
+
+        &-label {
+            font-size: $font-size-xs;
+            color: var(--text-muted, $gray-500);
+        }
+    }
+
+    // ===== ACTIONS =====
+    &__actions {
+        display: flex;
+        gap: $spacing-3;
+        width: 100%;
+        padding-top: $spacing-5;
+    }
+
+    &__action {
+        @include button-reset;
+        flex: 1;
+        padding: $spacing-3;
+        background-color: transparent;
+        color: $primary-600;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        border-radius: $radius-lg;
+        border: 2px solid $primary-600;
+        transition: all $transition-fast;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $primary-600;
+            color: $white;
+            transform: translateY(-2px);
+        }
+
+        &.primary {
+            background-color: $primary-600;
+            color: $white;
+
+            &:hover {
+                background-color: $primary-700;
+            }
+        }
+    }
+
+    // ===== RESPONSIVE =====
+    @include respond-to('sm') {
+        &__link {
+            padding: $spacing-6 $spacing-5 $spacing-5;
+        }
+
+        &__avatar {
+            width: 100px;
+            height: 100px;
+        }
+
+        &__stats {
+            grid-template-columns: 1fr;
+            gap: $spacing-3;
+        }
+
+        &__actions {
+            flex-direction: column;
+        }
+    }
+}

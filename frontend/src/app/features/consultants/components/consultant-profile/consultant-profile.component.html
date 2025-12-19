@@ -1,0 +1,182 @@
+<div class="consultant-profile-page">
+    <div class="container">
+        <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+    </div>
+
+    <!-- Loading State -->
+    @if (loading()) {
+    <div class="container">
+        <div class="loading-state">
+            <app-loading-spinner [size]="'large'"></app-loading-spinner>
+            <p>جاري تحميل بيانات المستشار...</p>
+        </div>
+    </div>
+    }
+
+    <!-- Error State -->
+    @else if (error()) {
+    <div class="container">
+        <div class="error-state">
+            <p class="error-message">{{ error() }}</p>
+            <a routerLink="/consultants" class="btn btn-primary">
+                العودة للقائمة
+            </a>
+        </div>
+    </div>
+    }
+
+    <!-- Consultant Profile -->
+    @else if (consultant(); as cons) {
+    <!-- Hero Section -->
+    <div class="consultant-hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="consultant-image">
+                    <img [src]="cons.image" [alt]="cons.name">
+                    @if (!cons.is_available) {
+                    <span class="status-badge unavailable">غير متاح حالياً</span>
+                    } @else {
+                    <span class="status-badge available">متاح</span>
+                    }
+                </div>
+
+                <div class="consultant-info">
+                    <h1 class="consultant-name">{{ cons.name }}</h1>
+                    <p class="consultant-specialty">{{ cons.specialty }}</p>
+
+                    <div class="consultant-meta">
+                        @if (cons.rating) {
+                        <div class="meta-item">
+                            <span class="meta-icon">⭐</span>
+                            <span class="meta-label">التقييم:</span>
+                            <span class="meta-value">{{ cons.rating }}/5</span>
+                        </div>
+                        }
+
+                        @if (cons.experience_years) {
+                        <div class="meta-item">
+                            <span class="meta-icon">💼</span>
+                            <span class="meta-label">الخبرة:</span>
+                            <span class="meta-value">{{ cons.experience_years }} سنوات</span>
+                        </div>
+                        }
+
+                        @if (cons.consultations_count) {
+                        <div class="meta-item">
+                            <span class="meta-icon">📊</span>
+                            <span class="meta-label">الاستشارات:</span>
+                            <span class="meta-value">{{ formatNumber(cons.consultations_count) }}</span>
+                        </div>
+                        }
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-lg" (click)="bookConsultation()"
+                            [disabled]="!cons.is_available">
+                            @if (cons.is_available) {
+                            احجز استشارة
+                            } @else {
+                            غير متاح حالياً
+                            }
+                        </button>
+                        <button class="btn btn-outline btn-lg" (click)="sendMessage()">
+                            إرسال رسالة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content-grid">
+            <!-- Main Column -->
+            <div class="main-column">
+                <div class="content-section">
+                    <h2>نبذة عن المستشار</h2>
+                    @if (cons.bio) {
+                    <p class="bio">{{ cons.bio }}</p>
+                    } @else {
+                    <p class="bio">
+                        {{ cons.name }} مستشار تعليمي متخصص في {{ cons.specialty }} مع خبرة واسعة في مساعدة الطلاب
+                        للقبول في أفضل الجامعات.
+                    </p>
+                    }
+                </div>
+
+                <div class="content-section">
+                    <h2>التخصصات</h2>
+                    <p>{{ cons.specialty }}</p>
+                </div>
+
+                @if (cons.languages && cons.languages.length > 0) {
+                <div class="content-section">
+                    <h2>اللغات</h2>
+                    <div class="languages-list">
+                        @for (lang of cons.languages; track lang) {
+                        <span class="language-badge">{{ lang }}</span>
+                        }
+                    </div>
+                </div>
+                }
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="info-card">
+                    <h3>معلومات التواصل</h3>
+
+                    <div class="contact-info">
+                        @if (cons.email) {
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <div>
+                                <strong>البريد الإلكتروني</strong>
+                                <a [href]="'mailto:' + cons.email">{{ cons.email }}</a>
+                            </div>
+                        </div>
+                        }
+
+                        @if (cons.phone) {
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <div>
+                                <strong>الهاتف</strong>
+                                <a [href]="'tel:' + cons.phone">{{ cons.phone }}</a>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <h3>الإحصائيات</h3>
+                    <div class="stats-list">
+                        @if (cons.rating) {
+                        <div class="stat-item">
+                            <span class="stat-label">التقييم</span>
+                            <span class="stat-value">{{ cons.rating }}/5 ⭐</span>
+                        </div>
+                        }
+
+                        @if (cons.experience_years) {
+                        <div class="stat-item">
+                            <span class="stat-label">سنوات الخبرة</span>
+                            <span class="stat-value">{{ cons.experience_years }}</span>
+                        </div>
+                        }
+
+                        @if (cons.consultations_count) {
+                        <div class="stat-item">
+                            <span class="stat-label">عدد الاستشارات</span>
+                            <span class="stat-value">{{ formatNumber(cons.consultations_count) }}</span>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>

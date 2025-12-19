@@ -1,0 +1,196 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.success-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-8 0;
+    background: linear-gradient(135deg, rgba($primary-color, 0.05), rgba($secondary-color, 0.05));
+}
+
+.success-card {
+    background-color: var(--card-bg, $white);
+    border-radius: $radius-3xl;
+    padding: $spacing-12 $spacing-10;
+    box-shadow: $shadow-2xl;
+    max-width: 700px;
+    text-align: center;
+
+    @include respond-to('md') {
+        padding: $spacing-8 $spacing-6;
+    }
+}
+
+// ===== SUCCESS ICON =====
+.success-icon {
+    margin-bottom: $spacing-8;
+
+    .check-circle {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+        border-radius: $radius-full;
+        background: linear-gradient(135deg, $success-color, $success-light);
+        color: $white;
+        font-size: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: $shadow-success;
+        animation: scaleIn 0.5s ease-out;
+    }
+}
+
+// ===== SUCCESS MESSAGE =====
+.success-title {
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: $font-weight-bold;
+    color: var(--heading-color, $gray-900);
+    margin: 0 0 $spacing-3 0;
+}
+
+.success-subtitle {
+    font-size: $font-size-lg;
+    color: var(--text-muted, $gray-600);
+    margin-bottom: $spacing-8;
+}
+
+// ===== APPLICATION ID =====
+.application-id {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-3;
+    padding: $spacing-4 $spacing-6;
+    background-color: rgba($primary-color, 0.1);
+    border-radius: $radius-xl;
+    margin-bottom: $spacing-10;
+
+    .label {
+        font-size: $font-size-sm;
+        color: var(--text-muted, $gray-600);
+    }
+
+    .id-value {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: $primary-600;
+    }
+}
+
+// ===== NEXT STEPS =====
+.next-steps {
+    margin-bottom: $spacing-10;
+    text-align: right;
+
+    h2 {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: var(--heading-color, $gray-900);
+        margin-bottom: $spacing-6;
+        text-align: center;
+    }
+}
+
+.steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-5;
+}
+
+.step-item {
+    display: flex;
+    gap: $spacing-4;
+    padding: $spacing-5;
+    background-color: rgba($gray-50, 0.5);
+    border-radius: $radius-xl;
+    text-align: right;
+    transition: all $transition-base;
+
+    &:hover {
+        background-color: rgba($primary-color, 0.05);
+        transform: translateX(-4px);
+    }
+
+    .step-number {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: $radius-full;
+        background: linear-gradient(135deg, $primary-600, $primary-500);
+        color: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: $font-weight-bold;
+    }
+
+    .step-content {
+        flex: 1;
+
+        h3 {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            color: var(--heading-color, $gray-900);
+            margin: 0 0 $spacing-2 0;
+        }
+
+        p {
+            font-size: $font-size-sm;
+            color: var(--text-muted, $gray-600);
+            margin: 0;
+        }
+    }
+}
+
+// ===== ACTIONS =====
+.success-actions {
+    display: flex;
+    gap: $spacing-4;
+    justify-content: center;
+    margin-bottom: $spacing-10;
+
+    @include respond-to('sm') {
+        flex-direction: column;
+
+        .btn {
+            width: 100%;
+        }
+    }
+}
+
+// ===== CONTACT INFO =====
+.contact-info {
+    padding-top: $spacing-6;
+    border-top: 1px solid var(--border-color, $gray-200);
+
+    p {
+        font-size: $font-size-sm;
+        color: var(--text-muted, $gray-600);
+        margin: $spacing-2 0;
+    }
+
+    a {
+        color: $primary-600;
+        text-decoration: none;
+        font-weight: $font-weight-medium;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// ===== ANIMATIONS =====
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

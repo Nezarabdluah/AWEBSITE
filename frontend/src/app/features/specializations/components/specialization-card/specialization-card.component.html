@@ -1,0 +1,50 @@
+<div class="specialization-card">
+    <a [routerLink]="['/specializations', specialization.id]" class="specialization-card__link">
+        <!-- Category Badge -->
+        <div class="specialization-card__header">
+            <span class="category-badge">
+                <span class="category-icon">{{ getCategoryIcon(specialization.category) }}</span>
+                <span>{{ getCategoryLabel(specialization.category) }}</span>
+            </span>
+            <span class="duration">{{ specialization.duration_years }} سنوات</span>
+        </div>
+
+        <!-- Content -->
+        <div class="specialization-card__content">
+            <h3 class="specialization-card__name">{{ specialization.name }}</h3>
+
+            @if (specialization.name_en) {
+            <p class="specialization-card__name-en">{{ specialization.name_en }}</p>
+            }
+
+            @if (specialization.description) {
+            <p class="specialization-card__description">{{ specialization.description }}</p>
+            }
+
+            <div class="specialization-card__stats">
+                @if (specialization.university_count) {
+                <div class="stat">
+                    <span class="stat__icon">🏛️</span>
+                    <span class="stat__value">{{ formatNumber(specialization.university_count) }} جامعة</span>
+                </div>
+                }
+
+                @if (specialization.average_salary) {
+                <div class="stat">
+                    <span class="stat__icon">💰</span>
+                    <span class="stat__value">{{ formatSalary(specialization.average_salary) }} متوسط الراتب</span>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Actions -->
+        @if (showActions) {
+        <div class="specialization-card__actions">
+            <button class="btn btn-sm btn-primary btn-block">
+                عرض التفاصيل
+            </button>
+        </div>
+        }
+    </a>
+</div>

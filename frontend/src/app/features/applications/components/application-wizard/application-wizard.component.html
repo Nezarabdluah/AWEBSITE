@@ -1,0 +1,267 @@
+<div class="application-wizard">
+    <div class="container">
+        <!-- Progress Header -->
+        <div class="wizard-header">
+            <h1 class="wizard-title">تقديم طلب التحاق</h1>
+            <p class="wizard-subtitle">أكمل الخطوات التالية لتقديم طلبك</p>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="getProgress()"></div>
+            </div>
+
+            <!-- Steps Indicator -->
+            <div class="steps-indicator">
+                @for (step of [1, 2, 3, 4]; track step) {
+                <div class="step-item" [class.active]="step === currentStep()" [class.completed]="step < currentStep()"
+                    (click)="goToStep(step)">
+                    <div class="step-circle">
+                        @if (step < currentStep()) { <span>✓</span>
+                            } @else {
+                            <span>{{ getStepIcon(step) }}</span>
+                            }
+                    </div>
+                    <div class="step-label">{{ getStepTitle(step) }}</div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Wizard Content -->
+        <div class="wizard-content">
+
+            <!-- Step 1: Personal Information -->
+            @if (currentStep() === 1) {
+            <div class="wizard-step">
+                <h2 class="step-title">{{ getStepIcon(1) }} المعلومات الشخصية</h2>
+
+                <form [formGroup]="personalInfoForm" class="wizard-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>الاسم الكامل *</label>
+                            <input type="text" formControlName="full_name" placeholder="أدخل اسمك الكامل">
+                            @if (personalInfoForm.get('full_name')?.invalid &&
+                            personalInfoForm.get('full_name')?.touched) {
+                            <span class="error">الاسم مطلوب (3 أحرف على الأقل)</span>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>البريد الإلكتروني *</label>
+                            <input type="email" formControlName="email" placeholder="example@email.com">
+                            @if (personalInfoForm.get('email')?.invalid && personalInfoForm.get('email')?.touched) {
+                            <span class="error">بريد إلكتروني صحيح مطلوب</span>
+                            }
+                        </div>
+
+                        <div class="form-group">
+                            <label>رقم الهاتف *</label>
+                            <input type="tel" formControlName="phone" placeholder="+966XXXXXXXXX">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>تاريخ الميلاد *</label>
+                            <input type="date" formControlName="date_of_birth">
+                        </div>
+
+                        <div class="form-group">
+                            <label>الجنسية *</label>
+                            <input type="text" formControlName="nationality" placeholder="السعودية">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>العنوان *</label>
+                            <input type="text" formControlName="address" placeholder="الشارع، الحي">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>المدينة *</label>
+                            <input type="text" formControlName="city" placeholder="الرياض">
+                        </div>
+
+                        <div class="form-group">
+                            <label>الدولة *</label>
+                            <input type="text" formControlName="country" placeholder="السعودية">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            }
+
+            <!-- Step 2: Academic Background -->
+            @if (currentStep() === 2) {
+            <div class="wizard-step">
+                <h2 class="step-title">{{ getStepIcon(2) }} الخلفية الأكاديمية</h2>
+
+                <form [formGroup]="academicForm" class="wizard-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>المستوى التعليمي الحالي *</label>
+                            <select formControlName="current_education_level">
+                                <option value="">اختر المستوى</option>
+                                <option value="ثانوية عامة">ثانوية عامة</option>
+                                <option value="بكالوريوس">بكالوريوس</option>
+                                <option value="ماجستير">ماجستير</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>المعدل (GPA)</label>
+                            <input type="number" formControlName="gpa" placeholder="95" min="0" max="100">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>سنة التخرج *</label>
+                            <input type="number" formControlName="graduation_year" placeholder="2023">
+                        </div>
+
+                        <div class="form-group">
+                            <label>الجامعة السابقة (إن وجدت)</label>
+                            <input type="text" formControlName="previous_university" placeholder="جامعة الملك سعود">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>IELTS Score</label>
+                            <input type="number" formControlName="ielts_score" placeholder="7.0" step="0.5" min="0"
+                                max="9">
+                        </div>
+
+                        <div class="form-group">
+                            <label>TOEFL Score</label>
+                            <input type="number" formControlName="toefl_score" placeholder="90" min="0" max="120">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            }
+
+            <!-- Step 3: Program Selection -->
+            @if (currentStep() === 3) {
+            <div class="wizard-step">
+                <h2 class="step-title">{{ getStepIcon(3) }} اختيار البرنامج</h2>
+
+                <form [formGroup]="programForm" class="wizard-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>الجامعة *</label>
+                            <select formControlName="university_id">
+                                <option value="">اختر الجامعة</option>
+                                <option value="1">جامعة هارفارد</option>
+                                <option value="2">MIT</option>
+                                <option value="3">ستانفورد</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>التخصص *</label>
+                            <select formControlName="specialization_id">
+                                <option value="">اختر التخصص</option>
+                                <option value="1">علوم الحاسوب</option>
+                                <option value="2">الهندسة</option>
+                                <option value="3">إدارة الأعمال</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>رسالة الدافع</label>
+                            <textarea formControlName="motivation_letter" rows="5"
+                                placeholder="اكتب لماذا تريد الدراسة في هذا البرنامج..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label>اهتماماتك البحثية</label>
+                            <textarea formControlName="research_interests" rows="3"
+                                placeholder="مجالات الاهتمام البحثي..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            }
+
+            <!-- Step 4: Documents -->
+            @if (currentStep() === 4) {
+            <div class="wizard-step">
+                <h2 class="step-title">{{ getStepIcon(4) }} المستندات</h2>
+
+                <div class="documents-info">
+                    <p>يرجى تحميل المستندات التالية (mock - للعرض فقط):</p>
+                </div>
+
+                <form [formGroup]="documentsForm" class="wizard-form">
+                    <div class="documents-list">
+                        <div class="document-item">
+                            <input type="checkbox" formControlName="passport_uploaded" id="passport">
+                            <label for="passport">
+                                <span class="doc-icon">📷</span>
+                                <span class="doc-name">صورة جواز السفر</span>
+                            </label>
+                        </div>
+
+                        <div class="document-item">
+                            <input type="checkbox" formControlName="transcript_uploaded" id="transcript">
+                            <label for="transcript">
+                                <span class="doc-icon">📊</span>
+                                <span class="doc-name">كشف الدرجات</span>
+                            </label>
+                        </div>
+
+                        <div class="document-item">
+                            <input type="checkbox" formControlName="diploma_uploaded" id="diploma">
+                            <label for="diploma">
+                                <span class="doc-icon">🎓</span>
+                                <span class="doc-name">الشهادة</span>
+                            </label>
+                        </div>
+
+                        <div class="document-item">
+                            <input type="checkbox" formControlName="cv_uploaded" id="cv">
+                            <label for="cv">
+                                <span class="doc-icon">📄</span>
+                                <span class="doc-name">السيرة الذاتية</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            }
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="wizard-actions">
+            <button class="btn btn-outline" (click)="previousStep()" [disabled]="currentStep() === 1">
+                ← السابق
+            </button>
+
+            <button class="btn btn-ghost" (click)="saveDraft()">
+                💾 حفظ المسودة
+            </button>
+
+            @if (currentStep() < totalSteps) { <button class="btn btn-primary" (click)="nextStep()"
+                [disabled]="!isCurrentStepValid()">
+                التالي →
+                </button>
+                } @else {
+                <button class="btn btn-success" (click)="submitApplication()"
+                    [disabled]="isSubmitting() || !isCurrentStepValid()" [class.btn-loading]="isSubmitting()">
+                    {{ isSubmitting() ? 'جاري الإرسال...' : '✓ تقديم الطلب' }}
+                </button>
+                }
+        </div>
+    </div>
+</div>

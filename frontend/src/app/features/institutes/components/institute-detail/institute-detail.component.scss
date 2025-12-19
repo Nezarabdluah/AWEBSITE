@@ -1,0 +1,313 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.institute-detail-page {
+    min-height: 100vh;
+    background-color: var(--bg-color);
+}
+
+// Hero Section
+.institute-hero {
+    position: relative;
+    min-height: 400px;
+    margin-bottom: $spacing-2xl;
+
+    &__image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+    }
+
+    &__content {
+        position: relative;
+        z-index: 1;
+        padding: $spacing-2xl 0;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        color: white;
+    }
+
+    &__info {
+        margin-bottom: $spacing-xl;
+
+        .type-badge {
+            display: inline-block;
+            background-color: rgba(white, 0.2);
+            color: white;
+            padding: $spacing-xs $spacing-md;
+            border-radius: $radius-full;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-bold;
+            margin-bottom: $spacing-md;
+            backdrop-filter: blur(10px);
+        }
+
+        .institute-name {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: $font-weight-bold;
+            margin: 0 0 $spacing-xs 0;
+        }
+
+        .institute-name-en {
+            font-size: $font-size-xl;
+            opacity: 0.9;
+            margin: 0 0 $spacing-md 0;
+        }
+
+        .institute-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: $spacing-md;
+
+            .meta-item {
+                font-size: $font-size-sm;
+                padding: $spacing-xs $spacing-sm;
+                background-color: rgba(white, 0.2);
+                border-radius: $radius-md;
+                backdrop-filter: blur(10px);
+
+                &.rating {
+                    background-color: rgba($success-color, 0.3);
+                    font-weight: $font-weight-bold;
+                }
+            }
+        }
+    }
+
+    &__actions {
+        display: flex;
+        gap: $spacing-md;
+
+        @include respond-to('sm') {
+            flex-direction: column;
+        }
+    }
+}
+
+// Quick Stats
+.quick-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: $spacing-lg;
+    margin-bottom: $spacing-2xl;
+
+    .stat-card {
+        background-color: var(--card-bg);
+        border-radius: $radius-xl;
+        padding: $spacing-lg;
+        display: flex;
+        align-items: center;
+        gap: $spacing-md;
+        box-shadow: $shadow-sm;
+
+        .stat-icon {
+            font-size: 3rem;
+        }
+
+        .stat-content {
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: $font-size-2xl;
+            font-weight: $font-weight-bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: $font-size-sm;
+            color: var(--text-muted);
+        }
+    }
+}
+
+// Tabs
+.tabs {
+    display: flex;
+    gap: $spacing-xs;
+    margin-bottom: $spacing-xl;
+    border-bottom: 2px solid var(--border-color);
+    overflow-x: auto;
+
+    .tab {
+        @include button-reset;
+        padding: $spacing-md $spacing-lg;
+        font-size: $font-size-base;
+        font-weight: $font-weight-medium;
+        color: var(--text-muted);
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        cursor: pointer;
+        transition: all $transition-base;
+        white-space: nowrap;
+
+        &:hover {
+            color: var(--primary-color);
+        }
+
+        &--active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+            font-weight: $font-weight-bold;
+        }
+    }
+}
+
+// Tab Content
+.tab-content {
+    .tab-pane {
+        animation: fadeIn 0.3s ease-out;
+
+        h2 {
+            font-size: $font-size-2xl;
+            font-weight: $font-weight-bold;
+            color: var(--heading-color);
+            margin: 0 0 $spacing-lg 0;
+        }
+
+        h3 {
+            font-size: $font-size-xl;
+            font-weight: $font-weight-semibold;
+            color: var(--heading-color);
+            margin: $spacing-lg 0 $spacing-md 0;
+        }
+
+        .description {
+            font-size: $font-size-base;
+            line-height: 1.8;
+            color: var(--text-color);
+            margin-bottom: $spacing-xl;
+        }
+    }
+}
+
+// Admission Info
+.admission-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-lg;
+
+    .info-card {
+        background-color: var(--card-bg);
+        border-radius: $radius-lg;
+        padding: $spacing-xl;
+        border: 1px solid var(--border-color);
+
+        h3 {
+            margin-top: 0;
+            font-size: $font-size-lg;
+            color: var(--heading-color);
+        }
+    }
+}
+
+// Contact Info
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+
+    .contact-item {
+        display: flex;
+        gap: $spacing-md;
+        padding: $spacing-lg;
+        background-color: var(--card-bg);
+        border-radius: $radius-lg;
+        border: 1px solid var(--border-color);
+
+        .contact-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        strong {
+            display: block;
+            margin-bottom: $spacing-xs;
+            color: var(--heading-color);
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        p {
+            margin: 0;
+            color: var(--text-color);
+        }
+    }
+}
+
+// States
+.loading-state,
+.error-state {
+    text-align: center;
+    padding: $spacing-4xl 0;
+
+    p {
+        margin-top: $spacing-lg;
+        font-size: $font-size-base;
+    }
+
+    .error-message {
+        color: $error-color;
+        font-size: $font-size-lg;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+// Animations
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Responsive
+@include respond-to('md') {
+    .institute-hero {
+        &__actions {
+            flex-direction: column;
+
+            .btn {
+                width: 100%;
+            }
+        }
+    }
+
+    .tabs {
+        .tab {
+            padding: $spacing-sm $spacing-md;
+            font-size: $font-size-sm;
+        }
+    }
+}

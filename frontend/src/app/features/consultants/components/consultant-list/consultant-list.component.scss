@@ -1,0 +1,289 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.consultant-list-page {
+    min-height: 100vh;
+    padding: $spacing-2xl 0;
+    background-color: var(--bg-color);
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+
+    .page-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: $font-weight-bold;
+        color: var(--heading-color);
+        margin: 0 0 $spacing-sm 0;
+    }
+
+    .page-subtitle {
+        font-size: $font-size-lg;
+        color: var(--text-muted);
+    }
+}
+
+.filters-section {
+    margin-bottom: $spacing-2xl;
+}
+
+.search-bar {
+    position: relative;
+    margin-bottom: $spacing-lg;
+    max-width: 600px;
+    margin-inline: auto;
+
+    .search-input {
+        width: 100%;
+        padding: $spacing-md $spacing-md $spacing-md 45px;
+        border: 2px solid var(--border-color);
+        border-radius: $radius-xl;
+        font-size: $font-size-base;
+        transition: all $transition-base;
+
+        &:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba($primary-color, 0.1);
+        }
+    }
+
+    .search-icon {
+        position: absolute;
+        left: $spacing-md;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.2rem;
+    }
+}
+
+.specialty-filters {
+    display: flex;
+    gap: $spacing-sm;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .filter-select {
+        min-width: 200px;
+        padding: $spacing-sm $spacing-md;
+        border: 2px solid var(--border-color);
+        border-radius: $radius-lg;
+        background-color: var(--card-bg);
+        font-size: $font-size-sm;
+        cursor: pointer;
+        transition: border-color $transition-base;
+
+        &:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+    }
+}
+
+.results-info {
+    text-align: center;
+    margin-bottom: $spacing-lg;
+
+    p {
+        color: var(--text-muted);
+        font-size: $font-size-sm;
+    }
+}
+
+.consultants-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: $spacing-xl;
+    margin-bottom: $spacing-2xl;
+
+    @include respond-to('md') {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: $spacing-lg;
+    }
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+    }
+}
+
+.consultant-card {
+    background-color: var(--card-bg);
+    border-radius: $radius-xl;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    transition: all $transition-base;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: $shadow-xl;
+        border-color: var(--primary-color);
+    }
+
+    &__link {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &__image {
+        position: relative;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: $spacing-sm;
+            right: $spacing-sm;
+            padding: $spacing-xs $spacing-sm;
+            border-radius: $radius-full;
+            font-size: $font-size-xs;
+            font-weight: $font-weight-bold;
+
+            &.available {
+                background-color: rgba($success-color, 0.9);
+                color: white;
+            }
+
+            &.unavailable {
+                background-color: rgba($error-color, 0.9);
+                color: white;
+            }
+        }
+    }
+
+    &__content {
+        padding: $spacing-lg;
+        flex: 1;
+    }
+
+    &__actions {
+        padding: 0 $spacing-lg $spacing-lg;
+    }
+}
+
+.consultant-name {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: var(--heading-color);
+    margin: 0 0 $spacing-xs 0;
+}
+
+.consultant-specialty {
+    font-size: $font-size-sm;
+    color: var(--primary-color);
+    font-weight: $font-weight-semibold;
+    margin: 0 0 $spacing-sm 0;
+}
+
+.consultant-bio {
+    font-size: $font-size-sm;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: $spacing-md;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.consultant-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+    padding-top: $spacing-sm;
+    border-top: 1px solid var(--border-color);
+
+    .stat {
+        display: flex;
+        align-items: center;
+        gap: $spacing-xs;
+        font-size: $font-size-xs;
+        color: var(--text-muted);
+
+        &-icon {
+            font-size: 1rem;
+        }
+
+        &-value {
+            font-weight: $font-weight-medium;
+        }
+    }
+}
+
+.consultant-languages {
+    font-size: $font-size-xs;
+    color: var(--text-muted);
+
+    .languages-label {
+        font-weight: $font-weight-semibold;
+        margin-inline-end: $spacing-xs;
+    }
+}
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: $spacing-2xl;
+}
+
+.loading-state,
+.error-state,
+.empty-state {
+    text-align: center;
+    padding: $spacing-4xl 0;
+
+    p {
+        margin-top: $spacing-lg;
+        font-size: $font-size-base;
+    }
+}
+
+.error-state .error-message {
+    color: $error-color;
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-lg;
+}
+
+.empty-state {
+    .empty-icon {
+        font-size: 5rem;
+        margin-bottom: $spacing-lg;
+        opacity: 0.5;
+    }
+
+    h3 {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: var(--heading-color);
+        margin: 0 0 $spacing-sm 0;
+    }
+
+    p {
+        color: var(--text-muted);
+        margin-bottom: $spacing-xl;
+    }
+}
+
+// RTL
+[dir='rtl'] {
+    .search-bar .search-icon {
+        left: auto;
+        right: $spacing-md;
+    }
+
+    .search-bar .search-input {
+        padding-left: $spacing-md;
+        padding-right: 45px;
+    }
+}

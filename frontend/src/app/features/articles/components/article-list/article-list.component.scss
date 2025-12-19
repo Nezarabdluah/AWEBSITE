@@ -1,0 +1,200 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.article-list-page {
+    min-height: 100vh;
+    padding: $spacing-2xl 0;
+    background-color: var(--bg-color);
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+
+    .page-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: $font-weight-bold;
+        color: var(--heading-color);
+        margin: 0 0 $spacing-sm 0;
+    }
+
+    .page-subtitle {
+        font-size: $font-size-lg;
+        color: var(--text-muted);
+    }
+}
+
+// Featured Section
+.featured-section {
+    margin-bottom: $spacing-3xl;
+
+    .section-title {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: var(--heading-color);
+        margin: 0 0 $spacing-xl 0;
+        text-align: center;
+    }
+
+    .featured-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: $spacing-xl;
+
+        @include respond-to('md') {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+// Filters
+.filters-section {
+    margin-bottom: $spacing-2xl;
+}
+
+.search-bar {
+    position: relative;
+    margin-bottom: $spacing-lg;
+    max-width: 600px;
+    margin-inline: auto;
+
+    .search-input {
+        width: 100%;
+        padding: $spacing-md $spacing-md $spacing-md 45px;
+        border: 2px solid var(--border-color);
+        border-radius: $radius-xl;
+        font-size: $font-size-base;
+        transition: all $transition-base;
+
+        &:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba($primary-color, 0.1);
+        }
+    }
+
+    .search-icon {
+        position: absolute;
+        left: $spacing-md;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.2rem;
+    }
+}
+
+.category-filters {
+    display: flex;
+    gap: $spacing-sm;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .category-btn {
+        @include button-reset;
+        padding: $spacing-sm $spacing-lg;
+        background-color: var(--card-bg);
+        border: 2px solid var(--border-color);
+        border-radius: $radius-full;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: all $transition-base;
+
+        &:hover {
+            border-color: var(--primary-color);
+            background-color: rgba($primary-color, 0.05);
+        }
+
+        &.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            font-weight: $font-weight-bold;
+        }
+    }
+}
+
+.results-info {
+    text-align: center;
+    margin-bottom: $spacing-lg;
+
+    p {
+        color: var(--text-muted);
+        font-size: $font-size-sm;
+    }
+}
+
+// Articles Grid
+.articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: $spacing-xl;
+    margin-bottom: $spacing-2xl;
+
+    @include respond-to('md') {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: $spacing-lg;
+    }
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: $spacing-2xl;
+}
+
+// States
+.loading-state,
+.error-state,
+.empty-state {
+    text-align: center;
+    padding: $spacing-4xl 0;
+
+    p {
+        margin-top: $spacing-lg;
+        font-size: $font-size-base;
+    }
+}
+
+.error-state .error-message {
+    color: $error-color;
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-lg;
+}
+
+.empty-state {
+    .empty-icon {
+        font-size: 5rem;
+        margin-bottom: $spacing-lg;
+        opacity: 0.5;
+    }
+
+    h3 {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: var(--heading-color);
+        margin: 0 0 $spacing-sm 0;
+    }
+
+    p {
+        color: var(--text-muted);
+        margin-bottom: $spacing-xl;
+    }
+}
+
+// RTL
+[dir='rtl'] {
+    .search-bar .search-icon {
+        left: auto;
+        right: $spacing-md;
+    }
+
+    .search-bar .search-input {
+        padding-left: $spacing-md;
+        padding-right: 45px;
+    }
+}

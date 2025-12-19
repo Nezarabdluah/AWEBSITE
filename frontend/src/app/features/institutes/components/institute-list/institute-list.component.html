@@ -1,0 +1,96 @@
+<div class="institute-list-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">المعاهد والكليات</h1>
+            <p class="page-subtitle">استكشف أفضل المعاهد والكليات التعليمية</p>
+        </div>
+
+        <!-- Filters Bar -->
+        <div class="filters-bar">
+            <div class="filters-bar__search">
+                <input type="text" class="search-input" placeholder="ابحث عن معهد أو كلية..." [value]="searchQuery()"
+                    (input)="onSearch($any($event.target).value)">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="filters-bar__controls">
+                <select class="filter-select" [value]="selectedType() || ''"
+                    (change)="onTypeChange($any($event.target).value)">
+                    <option value="">جميع الأنواع</option>
+                    @for (type of instituteTypes; track type.value) {
+                    <option [value]="type.value">{{ type.label }}</option>
+                    }
+                </select>
+
+                <select class="filter-select" [value]="filters.sort_by"
+                    (change)="onSortChange($any($event.target).value)">
+                    <option value="name">الاسم</option>
+                    <option value="students_count">عدد الطلاب</option>
+                    <option value="programs_count">عدد البرامج</option>
+                    <option value="rating">التقييم</option>
+                </select>
+
+                @if (selectedType() || searchQuery()) {
+                <button class="btn btn-sm btn-outline" (click)="clearFilters()">
+                    مسح الفلاتر
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="results-info">
+            <p>عرض {{ institutes().length }} من أصل {{ total() }} معهد</p>
+        </div>
+
+        <!-- Loading State -->
+        @if (loading()) {
+        <div class="loading-state">
+            <app-loading-spinner [size]="'large'"></app-loading-spinner>
+            <p>جاري تحميل المعاهد...</p>
+        </div>
+        }
+
+        <!-- Error State -->
+        @else if (error()) {
+        <div class="error-state">
+            <p class="error-message">{{ error() }}</p>
+            <button class="btn btn-primary" (click)="loadInstitutes()">
+                إعادة المحاولة
+            </button>
+        </div>
+        }
+
+        <!-- Institutes Grid -->
+        @else if (institutes().length > 0) {
+        <div class="institutes-grid">
+            @for (institute of institutes(); track institute.id) {
+            <app-institute-card [institute]="institute" [showActions]="true" (viewDetails)="onViewDetails($event)">
+            </app-institute-card>
+            }
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages() > 1) {
+        <div class="pagination-wrapper">
+            <app-pagination [currentPage]="currentPage()" [totalPages]="totalPages()"
+                (pageChange)="onPageChange($event)">
+            </app-pagination>
+        </div>
+        }
+        }
+
+        <!-- Empty State -->
+        @else {
+        <div class="empty-state">
+            <div class="empty-icon">🏫</div>
+            <h3>لا توجد نتائج</h3>
+            <p>لم نجد أي معاهد تطابق البحث. جرب تغيير الفلاتر.</p>
+            <button class="btn btn-primary" (click)="clearFilters()">
+                مسح الفلاتر
+            </button>
+        </div>
+        }
+    </div>
+</div>

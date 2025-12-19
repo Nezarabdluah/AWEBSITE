@@ -1,0 +1,72 @@
+<div class="management-page">
+    <div class="page-header">
+        <div>
+            <h1>إدارة الجامعات</h1>
+            <p>عرض وإدارة جميع الجامعات في النظام</p>
+        </div>
+        <button class="btn btn-primary" routerLink="./create">
+            ➕ إضافة جامعة جديدة
+        </button>
+    </div>
+
+    <!-- Search -->
+    <div class="search-bar">
+        <input type="text" placeholder="🔍 بحث عن جامعة..." [(ngModel)]="searchQuery"
+            (ngModelChange)="searchQuery.set($event)">
+    </div>
+
+    <!-- Loading State -->
+    @if (isLoading()) {
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>جاري التحميل...</p>
+    </div>
+    }
+
+    <!-- Universities Table -->
+    @if (!isLoading() && filteredUniversities.length > 0) {
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>الشعار</th>
+                    <th>الاسم</th>
+                    <th>الدولة</th>
+                    <th>الترتيب العالمي</th>
+                    <th>عدد الطلاب</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (university of filteredUniversities; track university.id) {
+                <tr>
+                    <td>
+                        <img [src]="university.logo" [alt]="university.name" class="table-logo">
+                    </td>
+                    <td class="name-cell">{{ university.name }}</td>
+                    <td>{{ university.country }}</td>
+                    <td>{{ university.world_ranking }}</td>
+                    <td>{{ university.total_students?.toLocaleString() }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon btn-edit" title="تعديل">✏️</button>
+                            <button class="btn-icon btn-delete" (click)="deleteUniversity(university.id)"
+                                title="حذف">🗑️</button>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+
+    <!-- Empty State -->
+    @if (!isLoading() && filteredUniversities.length === 0) {
+    <div class="empty-state">
+        <div class="empty-icon">🎓</div>
+        <h3>لا توجد جامعات</h3>
+        <p>لم يتم العثور على أي جامعات</p>
+    </div>
+    }
+</div>

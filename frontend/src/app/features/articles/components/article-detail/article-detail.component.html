@@ -1,0 +1,113 @@
+<div class="article-detail-page">
+    <div class="container">
+        <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+    </div>
+
+    <!-- Loading State -->
+    @if (loading()) {
+    <div class="container">
+        <div class="loading-state">
+            <app-loading-spinner [size]="'large'"></app-loading-spinner>
+            <p>جاري تحميل المقالة...</p>
+        </div>
+    </div>
+    }
+
+    <!-- Error State -->
+    @else if (error()) {
+    <div class="container">
+        <div class="error-state">
+            <p class="error-message">{{ error() }}</p>
+            <a routerLink="/articles" class="btn btn-primary">
+                العودة للمقالات
+            </a>
+        </div>
+    </div>
+    }
+
+    <!-- Article Content -->
+    @else if (article(); as art) {
+    <!-- Featured Image -->
+    @if (art.featured_image) {
+    <div class="article-hero">
+        <img [src]="art.featured_image" [alt]="art.title">
+        <div class="article-hero__overlay"></div>
+    </div>
+    }
+
+    <div class="container">
+        <div class="article-content">
+            <!-- Header -->
+            <header class="article-header">
+                @if (art.category) {
+                <span class="article-category">{{ art.category }}</span>
+                }
+
+                <h1 class="article-title">{{ art.title }}</h1>
+
+                <div class="article-meta">
+                    @if (art.published_at) {
+                    <span class="meta-item">
+                        <span class="meta-icon">📅</span>
+                        <span>{{ art.published_at | timeAgo }}</span>
+                    </span>
+                    }
+
+                    @if (art.views_count) {
+                    <span class="meta-item">
+                        <span class="meta-icon">👁️</span>
+                        <span>{{ formatViews(art.views_count) }} مشاهدة</span>
+                    </span>
+                    }
+                </div>
+            </header>
+
+            <!-- Excerpt -->
+            @if (art.excerpt) {
+            <div class="article-excerpt">
+                <p>{{ art.excerpt }}</p>
+            </div>
+            }
+
+            <!-- Main Content -->
+            <div class="article-body">
+                @if (art.content) {
+                <p>{{ art.content }}</p>
+                } @else {
+                <p>
+                    محتوى المقالة {{ art.title }} يتناول موضوعات مهمة ومفيدة للطلاب الراغبين
+                    في الدراسة بالخارج والحصول على أفضل الفرص التعليمية.
+                </p>
+                <p>
+                    نحن نعمل على توفير محتوى تعليمي عالي الجودة يساعد الطلاب في اتخاذ
+                    القرارات الصحيحة بشأن مستقبلهم الأكاديمي والمهني.
+                </p>
+                }
+            </div>
+
+            <!-- Share & Actions -->
+            <div class="article-actions">
+                <h3>شارك هذه المقالة</h3>
+                <div class="share-buttons">
+                    <button class="share-btn share-btn--facebook">
+                        <span>Facebook</span>
+                    </button>
+                    <button class="share-btn share-btn--twitter">
+                        <span>Twitter</span>
+                    </button>
+                    <button class="share-btn share-btn--linkedin">
+                        <span>LinkedIn</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Back to Articles -->
+            <div class="article-footer">
+                <a routerLink="/articles" class="btn btn-outline">
+                    ← العودة للمقالات
+                </a>
+            </div>
+        </div>
+    </div>
+    }
+</div>

@@ -1,0 +1,192 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.institute-list-page {
+    min-height: 100vh;
+    padding: $spacing-2xl 0;
+    background-color: var(--bg-color);
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+
+    &__title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: $font-weight-bold;
+        color: var(--heading-color);
+        margin: 0 0 $spacing-sm 0;
+    }
+
+    &__subtitle {
+        font-size: $font-size-lg;
+        color: var(--text-muted);
+        margin: 0;
+    }
+}
+
+// Filters Bar
+.filters-bar {
+    background-color: var(--card-bg);
+    border-radius: $radius-xl;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-xl;
+    box-shadow: $shadow-sm;
+
+    @include respond-to('md') {
+        padding: $spacing-md;
+    }
+
+    &__search {
+        position: relative;
+        margin-bottom: $spacing-md;
+
+        .search-input {
+            width: 100%;
+            padding: $spacing-md $spacing-md $spacing-md 45px;
+            border: 1px solid var(--border-color);
+            border-radius: $radius-lg;
+            font-size: $font-size-base;
+            transition: all $transition-base;
+
+            &:focus {
+                outline: none;
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+            }
+        }
+
+        .search-icon {
+            position: absolute;
+            left: $spacing-md;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+    }
+
+    &__controls {
+        display: flex;
+        gap: $spacing-sm;
+        flex-wrap: wrap;
+
+        .filter-select {
+            flex: 1;
+            min-width: 150px;
+            padding: $spacing-sm $spacing-md;
+            border: 1px solid var(--border-color);
+            border-radius: $radius-md;
+            background-color: var(--bg-color);
+            font-size: $font-size-sm;
+            cursor: pointer;
+            transition: border-color $transition-base;
+
+            &:focus {
+                outline: none;
+                border-color: var(--primary-color);
+            }
+        }
+    }
+}
+
+// Results Info
+.results-info {
+    margin-bottom: $spacing-lg;
+
+    p {
+        color: var(--text-muted);
+        font-size: $font-size-sm;
+        margin: 0;
+    }
+}
+
+// Institutes Grid
+.institutes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: $spacing-xl;
+    margin-bottom: $spacing-2xl;
+
+    @include respond-to('md') {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: $spacing-lg;
+    }
+
+    @include respond-to('sm') {
+        grid-template-columns: 1fr;
+    }
+}
+
+// Pagination
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: $spacing-2xl;
+}
+
+// Loading State
+.loading-state {
+    text-align: center;
+    padding: $spacing-4xl 0;
+
+    p {
+        margin-top: $spacing-lg;
+        color: var(--text-muted);
+        font-size: $font-size-base;
+    }
+}
+
+// Error State
+.error-state {
+    text-align: center;
+    padding: $spacing-4xl 0;
+
+    .error-message {
+        color: $error-color;
+        font-size: $font-size-lg;
+        margin-bottom: $spacing-lg;
+    }
+}
+
+// Empty State
+.empty-state {
+    text-align: center;
+    padding: $spacing-4xl 0;
+
+    .empty-icon {
+        font-size: 5rem;
+        margin-bottom: $spacing-lg;
+        opacity: 0.5;
+    }
+
+    h3 {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: var(--heading-color);
+        margin: 0 0 $spacing-sm 0;
+    }
+
+    p {
+        color: var(--text-muted);
+        font-size: $font-size-base;
+        margin: 0 0 $spacing-xl 0;
+    }
+}
+
+// RTL Support
+[dir='rtl'] {
+    .filters-bar {
+        &__search {
+            .search-input {
+                padding-left: $spacing-md;
+                padding-right: 45px;
+            }
+
+            .search-icon {
+                left: auto;
+                right: $spacing-md;
+            }
+        }
+    }
+}

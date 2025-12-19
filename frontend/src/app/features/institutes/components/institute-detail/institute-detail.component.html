@@ -1,0 +1,205 @@
+<div class="institute-detail-page">
+    <!-- Breadcrumb -->
+    <div class="container">
+        <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+    </div>
+
+    <!-- Loading State -->
+    @if (loading()) {
+    <div class="container">
+        <div class="loading-state">
+            <app-loading-spinner [size]="'large'"></app-loading-spinner>
+            <p>جاري تحميل بيانات المعهد...</p>
+        </div>
+    </div>
+    }
+
+    <!-- Error State -->
+    @else if (error()) {
+    <div class="container">
+        <div class="error-state">
+            <p class="error-message">{{ error() }}</p>
+            <a routerLink="/institutes" class="btn btn-primary">
+                العودة للقائمة
+            </a>
+        </div>
+    </div>
+    }
+
+    <!-- Institute Details -->
+    @else if (institute(); as inst) {
+    <!-- Hero Section -->
+    <div class="institute-hero">
+        <div class="institute-hero__image">
+            <img [src]="inst.image" [alt]="inst.name">
+            <div class="institute-hero__overlay"></div>
+        </div>
+        <div class="container institute-hero__content">
+            <div class="institute-hero__info">
+                <div class="type-badge">{{ getTypeLabel(inst.type) }}</div>
+                <h1 class="institute-name">{{ inst.name }}</h1>
+                @if (inst.name_en) {
+                <p class="institute-name-en">{{ inst.name_en }}</p>
+                }
+                <div class="institute-meta">
+                    <span class="meta-item">📍 {{ inst.city }}, {{ inst.country }}</span>
+                    @if (inst.rating) {
+                    <span class="meta-item rating">⭐ {{ inst.rating }}</span>
+                    }
+                </div>
+            </div>
+            <div class="institute-hero__actions">
+                <button class="btn btn-primary btn-lg" (click)="applyNow()">
+                    قدّم الآن
+                </button>
+                <a [href]="inst.website" target="_blank" class="btn btn-outline btn-lg">
+                    🌐 الموقع الإلكتروني
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="institute-content">
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                @if (inst.students_count) {
+                <div class="stat-card">
+                    <div class="stat-icon">🎓</div>
+                    <div class="stat-content">
+                        <div class="stat-value">{{ formatNumber(inst.students_count) }}</div>
+                        <div class="stat-label">طالب</div>
+                    </div>
+                </div>
+                }
+
+                @if (inst.programs_count) {
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-content">
+                        <div class="stat-value">{{ formatNumber(inst.programs_count) }}</div>
+                        <div class="stat-label">برنامج دراسي</div>
+                    </div>
+                </div>
+                }
+
+                @if (inst.rating) {
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <div class="stat-value">{{ inst.rating }}</div>
+                        <div class="stat-label">التقييم</div>
+                    </div>
+                </div>
+                }
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab" [class.tab--active]="activeTab() === 'overview'" (click)="setActiveTab('overview')">
+                    نظرة عامة
+                </button>
+                <button class="tab" [class.tab--active]="activeTab() === 'programs'" (click)="setActiveTab('programs')">
+                    البرامج الدراسية
+                </button>
+                <button class="tab" [class.tab--active]="activeTab() === 'admission'"
+                    (click)="setActiveTab('admission')">
+                    القبول والشروط
+                </button>
+                <button class="tab" [class.tab--active]="activeTab() === 'contact'" (click)="setActiveTab('contact')">
+                    التواصل
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Overview Tab -->
+                @if (activeTab() === 'overview') {
+                <div class="tab-pane">
+                    <h2>عن {{ inst.name }}</h2>
+                    @if (inst.description) {
+                    <p class="description">{{ inst.description }}</p>
+                    } @else {
+                    <p class="description">
+                        {{ inst.name }} من المؤسسات التعليمية المتميزة التي تقدم برامج دراسية عالية الجودة.
+                    </p>
+                    }
+                </div>
+                }
+
+                <!-- Programs Tab -->
+                @if (activeTab() === 'programs') {
+                <div class="tab-pane">
+                    <h2>البرامج الدراسية</h2>
+                    <p class="description">
+                        يقدم {{ inst.name }} {{ formatNumber(inst.programs_count) }} برنامج دراسي متنوع.
+                    </p>
+                    <!-- TODO: Add programs list -->
+                </div>
+                }
+
+                <!-- Admission Tab -->
+                @if (activeTab() === 'admission') {
+                <div class="tab-pane">
+                    <h2>القبول والشروط</h2>
+                    <div class="admission-info">
+                        <div class="info-card">
+                            <h3>شروط القبول</h3>
+                            <p>سيتم عرض شروط القبول قريباً.</p>
+                        </div>
+                    </div>
+                </div>
+                }
+
+                <!-- Contact Tab -->
+                @if (activeTab() === 'contact') {
+                <div class="tab-pane">
+                    <h2>معلومات التواصل</h2>
+
+                    <div class="contact-info">
+                        @if (inst.website) {
+                        <div class="contact-item">
+                            <span class="contact-icon">🌐</span>
+                            <div>
+                                <strong>الموقع الإلكتروني</strong>
+                                <a [href]="inst.website" target="_blank" rel="noopener">{{ inst.website }}</a>
+                            </div>
+                        </div>
+                        }
+
+                        @if (inst.email) {
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <div>
+                                <strong>البريد الإلكتروني</strong>
+                                <a [href]="'mailto:' + inst.email">{{ inst.email }}</a>
+                            </div>
+                        </div>
+                        }
+
+                        @if (inst.phone) {
+                        <div class="contact-item">
+                            <span class="contact-icon">📞</span>
+                            <div>
+                                <strong>الهاتف</strong>
+                                <a [href]="'tel:' + inst.phone">{{ inst.phone }}</a>
+                            </div>
+                        </div>
+                        }
+
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <div>
+                                <strong>العنوان</strong>
+                                <p>{{ inst.city }}, {{ inst.country }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+    }
+</div>

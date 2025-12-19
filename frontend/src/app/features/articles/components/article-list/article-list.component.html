@@ -1,0 +1,96 @@
+<div class="article-list-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">المدونة والمقالات</h1>
+            <p class="page-subtitle">اقرأ آخر المقالات والنصائح حول الدراسة في الخارج</p>
+        </div>
+
+        <!-- Featured Articles (First page only) -->
+        @if (featuredArticles().length > 0 && currentPage() === 1) {
+        <div class="featured-section">
+            <h2 class="section-title">مقالات مميزة</h2>
+            <div class="featured-grid">
+                @for (article of featuredArticles(); track article.id) {
+                <app-article-card [article]="article" [featured]="true"></app-article-card>
+                }
+            </div>
+        </div>
+        }
+
+        <!-- Search & Filters -->
+        <div class="filters-section">
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="ابحث عن مقالة..." [value]="searchQuery()"
+                    (input)="onSearch($any($event.target).value)">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="category-filters">
+                <button class="category-btn" [class.active]="!selectedCategory()" (click)="onCategoryChange('')">
+                    الكل
+                </button>
+
+                @for (cat of categories; track cat) {
+                <button class="category-btn" [class.active]="selectedCategory() === cat"
+                    (click)="onCategoryChange(cat)">
+                    {{ cat }}
+                </button>
+                }
+            </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="results-info">
+            <p>عرض {{ articles().length }} من أصل {{ total() }} مقالة</p>
+        </div>
+
+        <!-- Loading State -->
+        @if (loading()) {
+        <div class="loading-state">
+            <app-loading-spinner [size]="'large'"></app-loading-spinner>
+            <p>جاري تحميل المقالات...</p>
+        </div>
+        }
+
+        <!-- Error State -->
+        @else if (error()) {
+        <div class="error-state">
+            <p class="error-message">{{ error() }}</p>
+            <button class="btn btn-primary" (click)="loadArticles()">
+                إعادة المحاولة
+            </button>
+        </div>
+        }
+
+        <!-- Articles Grid -->
+        @else if (articles().length > 0) {
+        <div class="articles-grid">
+            @for (article of articles(); track article.id) {
+            <app-article-card [article]="article"></app-article-card>
+            }
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages() > 1) {
+        <div class="pagination-wrapper">
+            <app-pagination [currentPage]="currentPage()" [totalPages]="totalPages()"
+                (pageChange)="onPageChange($event)">
+            </app-pagination>
+        </div>
+        }
+        }
+
+        <!-- Empty State -->
+        @else {
+        <div class="empty-state">
+            <div class="empty-icon">📝</div>
+            <h3>لا توجد نتائج</h3>
+            <p>لم نجد أي مقالات تطابق البحث.</p>
+            <button class="btn btn-primary" (click)="clearFilters()">
+                مسح الفلاتر
+            </button>
+        </div>
+        }
+    </div>
+</div>

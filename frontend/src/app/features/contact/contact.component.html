@@ -1,0 +1,116 @@
+<div class="contact-page">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">تواصل معنا</h1>
+            <p class="page-subtitle">نحن هنا للإجابة على استفساراتك ومساعدتك</p>
+        </div>
+
+        <div class="contact-content">
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <div class="form-card">
+                    <h2 class="form-title">أرسل رسالة</h2>
+
+                    @if (submitSuccess()) {
+                    <div class="success-message">
+                        <span class="success-icon">✓</span>
+                        <p>تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.</p>
+                    </div>
+                    }
+
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+                        <!-- Name -->
+                        <div class="form-group">
+                            <label>الاسم الكامل *</label>
+                            <input type="text" formControlName="name" placeholder="أدخل اسمك الكامل"
+                                [class.error]="isFieldInvalid('name')">
+                            @if (isFieldInvalid('name')) {
+                            <span class="error-message">الاسم مطلوب (3 أحرف على الأقل)</span>
+                            }
+                        </div>
+
+                        <!-- Email & Phone -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>البريد الإلكتروني *</label>
+                                <input type="email" formControlName="email" placeholder="example@email.com"
+                                    [class.error]="isFieldInvalid('email')">
+                                @if (isFieldInvalid('email')) {
+                                <span class="error-message">بريد إلكتروني صحيح مطلوب</span>
+                                }
+                            </div>
+
+                            <div class="form-group">
+                                <label>رقم الهاتف *</label>
+                                <input type="tel" formControlName="phone" placeholder="+966XXXXXXXXX"
+                                    [class.error]="isFieldInvalid('phone')">
+                            </div>
+                        </div>
+
+                        <!-- Subject -->
+                        <div class="form-group">
+                            <label>الموضوع *</label>
+                            <input type="text" formControlName="subject" placeholder="موضوع الرسالة"
+                                [class.error]="isFieldInvalid('subject')">
+                        </div>
+
+                        <!-- Message -->
+                        <div class="form-group">
+                            <label>الرسالة *</label>
+                            <textarea formControlName="message" rows="6" placeholder="اكتب رسالتك هنا..."
+                                [class.error]="isFieldInvalid('message')"></textarea>
+                            @if (isFieldInvalid('message')) {
+                            <span class="error-message">الرسالة مطلوبة (10 أحرف على الأقل)</span>
+                            }
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary btn-lg" [disabled]="isSubmitting()"
+                            [class.btn-loading]="isSubmitting()">
+                            {{ isSubmitting() ? 'جاري الإرسال...' : '📧 إرسال الرسالة' }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info-section">
+                <!-- Contact Cards -->
+                <div class="info-cards">
+                    @for (info of contactInfo; track info.title) {
+                    <div class="info-card">
+                        <div class="info-icon">{{ info.icon }}</div>
+                        <div class="info-content">
+                            <h3 class="info-title">{{ info.title }}</h3>
+                            @if (info.link) {
+                            <a [href]="info.link" class="info-value">{{ info.value }}</a>
+                            } @else {
+                            <p class="info-value">{{ info.value }}</p>
+                            }
+                        </div>
+                    </div>
+                    }
+                </div>
+
+                <!-- Social Links -->
+                <div class="social-section">
+                    <h3 class="social-title">تابعنا على</h3>
+                    <div class="social-links">
+                        @for (social of socialLinks; track social.name) {
+                        <a [href]="social.url" class="social-link" [title]="social.name">
+                            {{ social.icon }}
+                        </a>
+                        }
+                    </div>
+                </div>
+
+                <!-- Map Placeholder -->
+                <div class="map-placeholder">
+                    <div class="map-icon">🗺️</div>
+                    <p>خريطة الموقع</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

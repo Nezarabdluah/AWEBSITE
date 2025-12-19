@@ -1,0 +1,145 @@
+<div class="specialization-detail-page">
+    <div class="container">
+        <app-breadcrumb [items]="breadcrumbs"></app-breadcrumb>
+    </div>
+
+    <!-- Loading State -->
+    @if (loading()) {
+    <div class="container">
+        <div class="loading-state">
+            <app-loading-spinner [size]="'large'"></app-loading-spinner>
+            <p>جاري تحميل بيانات التخصص...</p>
+        </div>
+    </div>
+    }
+
+    <!-- Error State -->
+    @else if (error()) {
+    <div class="container">
+        <div class="error-state">
+            <p class="error-message">{{ error() }}</p>
+            <a routerLink="/specializations" class="btn btn-primary">
+                العودة للقائمة
+            </a>
+        </div>
+    </div>
+    }
+
+    <!-- Specialization Details -->
+    @else if (specialization(); as spec) {
+    <div class="specialization-hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="category-badge">
+                    <span class="category-icon">{{ getCategoryIcon(spec.category) }}</span>
+                    <span>{{ getCategoryLabel(spec.category) }}</span>
+                </div>
+
+                <h1 class="specialization-name">{{ spec.name }}</h1>
+
+                @if (spec.name_en) {
+                <p class="specialization-name-en">{{ spec.name_en }}</p>
+                }
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-icon">⏱️</span>
+                        <span class="stat-label">المدة</span>
+                        <span class="stat-value">{{ spec.duration_years }} سنوات</span>
+                    </div>
+
+                    @if (spec.university_count) {
+                    <div class="stat">
+                        <span class="stat-icon">🏛️</span>
+                        <span class="stat-label">الجامعات</span>
+                        <span class="stat-value">{{ formatNumber(spec.university_count) }}</span>
+                    </div>
+                    }
+
+                    @if (spec.average_salary) {
+                    <div class="stat">
+                        <span class="stat-icon">💰</span>
+                        <span class="stat-label">متوسط الراتب</span>
+                        <span class="stat-value">{{ formatSalary(spec.average_salary) }}</span>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content-grid">
+            <!-- Main Column -->
+            <div class="main-column">
+                <div class="content-section">
+                    <h2>عن التخصص</h2>
+
+                    @if (spec.description) {
+                    <p class="description">{{ spec.description }}</p>
+                    } @else {
+                    <p class="description">
+                        تخصص {{ spec.name }} من التخصصات المتميزة التي توفر فرص عمل متنوعة ومستقبل وظيفي واعد.
+                    </p>
+                    }
+                </div>
+
+                <div class="content-section">
+                    <h2>مجالات العمل</h2>
+                    <p class="description">
+                        يمكن لخريجي تخصص {{ spec.name }} العمل في مجالات متعددة ومختلفة.
+                    </p>
+                    <!-- TODO: Add career paths -->
+                </div>
+
+                <div class="content-section">
+                    <h2>المهارات المطلوبة</h2>
+                    <p class="description">
+                        يحتاج هذا التخصص إلى مهارات تحليلية وإبداعية ومعرفة تقنية.
+                    </p>
+                    <!-- TODO: Add required skills -->
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="info-card">
+                    <h3>معلومات التخصص</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-label">الدرجة العلمية</span>
+                            <span class="info-value">بكالوريوس</span>
+                        </div>
+
+                        <div class="info-item">
+                            <span class="info-label">مدة الدراسة</span>
+                            <span class="info-value">{{ spec.duration_years }} سنوات</span>
+                        </div>
+
+                        @if (spec.university_count) {
+                        <div class="info-item">
+                            <span class="info-label">عدد الجامعات</span>
+                            <span class="info-value">{{ formatNumber(spec.university_count) }}</span>
+                        </div>
+                        }
+
+                        <div class="info-item">
+                            <span class="info-label">التصنيف</span>
+                            <span class="info-value">{{ getCategoryLabel(spec.category) }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta-card">
+                    <h3>هل أنت مهتم؟</h3>
+                    <p>استكشف الجامعات التي تقدم هذا التخصص</p>
+                    <button class="btn btn-primary btn-block" (click)="exploreUniversities()">
+                        استكشف الجامعات
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+</div>
